@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Goods
+Comment=Goods P2P Cryptocurrency
+Comment[fr]=Goods, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Goods, eşten eşe kriptografik sanal para birimi
+Exec=goods-qt %u
+Terminal=false
+Type=Application
+Icon=goods128
+MimeType=x-scheme-handler/goods;
+Categories=Office;Finance;

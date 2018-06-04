@@ -1,0 +1,26 @@
+[Unit]
+Description=Goods's distributed currency daemon
+After=network.target
+
+[Service]
+User=goods
+Group=goods
+
+Type=forking
+PIDFile=/var/lib/goodsd/goodsd.pid
+
+ExecStart=/usr/bin/goodsd -daemon -pid=/var/lib/goodsd/goodsd.pid \
+          -conf=/etc/goods/goods.conf -datadir=/var/lib/goodsd
+
+ExecStop=-/usr/bin/goods-cli -conf=/etc/goods/goods.conf \
+         -datadir=/var/lib/goodsd stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,26 @@
+# /etc/conf.d/goodsd: config file for /etc/init.d/goodsd
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/goods/goods.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/goodsd"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/goodsd.pid"
+
+# Where to write goodsd data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/goodsd"
+
+# User and group to own goodsd process
+#BITCOIND_USER="goods"
+#BITCOIND_GROUP="goods"
+
+# Path to goodsd executable
+#BITCOIND_BIN="/usr/bin/goodsd"
+
+# Nice value to run goodsd under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+BITCOIND_OPTS=""
