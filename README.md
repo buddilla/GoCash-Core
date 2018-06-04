@@ -17,7 +17,7 @@ GOODS forked from PIVX, PIVX forked from Dash, Dash forked from Bitcoin
 <tr><td>Block Time</td><td>60 Seconds</td></tr>
 <tr><td>Difficulty Retargeting</td><td>Every Block</td></tr>
 <tr><td>Max Coin Supply (PoS Phase)</td><td>22,000,000</td></tr>
-<tr><td>Premine</td><td>3,300,000 GDS</td></tr>
+<tr><td>Premine</td><td>600,000 GDS</td></tr>
 <tr><td>Masternode Collateral</td><td>10,000 GDS</td></tr>
 <tr><td>Port Collateral</td><td>33333</td></tr>
 <tr><td>RPCPort Collateral</td><td>33334</td></tr>
