@@ -19,18 +19,18 @@ BitcoinUnits::BitcoinUnits(QObject* parent) : QAbstractListModel(parent),
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(GDS);
-    unitlist.append(mGDS);
-    unitlist.append(uGDS);
+    unitlist.append(JADE);
+    unitlist.append(mJADE);
+    unitlist.append(uJADE);
     return unitlist;
 }
 
 bool BitcoinUnits::valid(int unit)
 {
     switch (unit) {
-    case GDS:
-    case mGDS:
-    case uGDS:
+    case JADE:
+    case mJADE:
+    case uJADE:
         return true;
     default:
         return false;
@@ -40,12 +40,12 @@ bool BitcoinUnits::valid(int unit)
 QString BitcoinUnits::id(int unit)
 {
     switch (unit) {
-    case GDS:
-        return QString("goods");
-    case mGDS:
-        return QString("mgoods");
-    case uGDS:
-        return QString::fromUtf8("ugoods");
+    case JADE:
+        return QString("jade");
+    case mJADE:
+        return QString("mjade");
+    case uJADE:
+        return QString::fromUtf8("ujade");
     default:
         return QString("???");
     }
@@ -55,23 +55,23 @@ QString BitcoinUnits::name(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case GDS:
-            return QString("GDS");
-        case mGDS:
-            return QString("mGDS");
-        case uGDS:
-            return QString::fromUtf8("μGDS");
+        case JADE:
+            return QString("JADE");
+        case mJADE:
+            return QString("mJADE");
+        case uJADE:
+            return QString::fromUtf8("μJADE");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
-        case GDS:
-            return QString("tGDS");
-        case mGDS:
-            return QString("mtGDS");
-        case uGDS:
-            return QString::fromUtf8("μtGDS");
+        case JADE:
+            return QString("tJADE");
+        case mJADE:
+            return QString("mtJADE");
+        case uJADE:
+            return QString::fromUtf8("μtJADE");
         default:
             return QString("???");
         }
@@ -82,23 +82,23 @@ QString BitcoinUnits::description(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case GDS:
-            return QString("GDS");
-        case mGDS:
-            return QString("Milli-GDS (1 / 1" THIN_SP_UTF8 "000)");
-        case uGDS:
-            return QString("Micro-GDS (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+        case JADE:
+            return QString("JADE");
+        case mJADE:
+            return QString("Milli-JADE (1 / 1" THIN_SP_UTF8 "000)");
+        case uJADE:
+            return QString("Micro-JADE (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
-        case GDS:
-            return QString("TestGDSs");
-        case mGDS:
-            return QString("Milli-TestGDS (1 / 1" THIN_SP_UTF8 "000)");
-        case uGDS:
-            return QString("Micro-TestGDS (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+        case JADE:
+            return QString("TestJADEs");
+        case mJADE:
+            return QString("Milli-TestJADE (1 / 1" THIN_SP_UTF8 "000)");
+        case uJADE:
+            return QString("Micro-TestJADE (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
         }
@@ -108,11 +108,11 @@ QString BitcoinUnits::description(int unit)
 qint64 BitcoinUnits::factor(int unit)
 {
     switch (unit) {
-    case GDS:
+    case JADE:
         return 100000000;
-    case mGDS:
+    case mJADE:
         return 100000;
-    case uGDS:
+    case uJADE:
         return 100;
     default:
         return 100000000;
@@ -122,11 +122,11 @@ qint64 BitcoinUnits::factor(int unit)
 int BitcoinUnits::decimals(int unit)
 {
     switch (unit) {
-    case GDS:
+    case JADE:
         return 8;
-    case mGDS:
+    case mJADE:
         return 5;
-    case uGDS:
+    case uJADE:
         return 2;
     default:
         return 0;

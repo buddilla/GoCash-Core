@@ -129,7 +129,7 @@ public slots:
     /** Show progress dialog e.g. for rescan */
     void showProgress(const QString& title, int nProgress);
 
-    /** Update selected GDS amount from transactionview */
+    /** Update selected JADE amount from transactionview */
     void trxAmount(QString amount);
 
 signals:

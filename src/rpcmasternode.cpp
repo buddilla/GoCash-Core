@@ -35,7 +35,7 @@ void SendMoney(const CTxDestination& address, CAmount nValue, CWalletTx& wtxNew,
         throw JSONRPCError(RPC_WALLET_ERROR, strError);
     }
 
-    // Parse Goods address
+    // Parse JADE address
     CScript scriptPubKey = GetScriptForDestination(address);
 
     // Create and send the transaction
@@ -57,8 +57,8 @@ Value obfuscation(const Array& params, bool fHelp)
 
     if (fHelp || params.size() == 0)
         throw runtime_error(
-            "obfuscation <goodsaddress> <amount>\n"
-            "goodsaddress, reset, or auto (AutoDenominate)"
+            "obfuscation <jadeaddress> <amount>\n"
+            "jadeaddress, reset, or auto (AutoDenominate)"
             "<amount> is a real and will be rounded to the next 0.1" +
             HelpRequiringPassphrase());
 
@@ -79,14 +79,14 @@ Value obfuscation(const Array& params, bool fHelp)
 
     if (params.size() != 2)
         throw runtime_error(
-            "obfuscation <goodsaddress> <amount>\n"
-            "goodsaddress, denominate, or auto (AutoDenominate)"
+            "obfuscation <jadeaddress> <amount>\n"
+            "jadeaddress, denominate, or auto (AutoDenominate)"
             "<amount> is a real and will be rounded to the next 0.1" +
             HelpRequiringPassphrase());
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Goods address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid JADE address");
 
     // Amount
     CAmount nAmount = AmountFromValue(params[1]);
@@ -110,7 +110,7 @@ Value getpoolinfo(const Array& params, bool fHelp)
 
             "\nResult:\n"
             "{\n"
-            "  \"current\": \"addr\",    (string) Goods address of current masternode\n"
+            "  \"current\": \"addr\",    (string) JADE address of current masternode\n"
             "  \"state\": xxxx,        (string) unknown\n"
             "  \"entries\": xxxx,      (numeric) Number of entries\n"
             "  \"accepted\": xxxx,     (numeric) Number of entries accepted\n"
@@ -154,7 +154,7 @@ Value masternode(const Array& params, bool fHelp)
             "  debug        - Print masternode status\n"
             "  genkey       - Generate new masternodeprivkey\n"
             "  outputs      - Print masternode compatible outputs\n"
-            "  start        - Start masternode configured in goods.conf\n"
+            "  start        - Start masternode configured in jade.conf\n"
             "  start-alias  - Start single masternode by assigned alias configured in masternode.conf\n"
             "  start-<mode> - Start masternodes configured in masternode.conf (<mode>: 'all', 'missing', 'disabled')\n"
             "  status       - Print masternode status information\n"
@@ -256,7 +256,7 @@ Value listmasternodes(const Array& params, bool fHelp)
             "    \"txhash\": \"hash\",    (string) Collateral transaction hash\n"
             "    \"outidx\": n,         (numeric) Collateral transaction output index\n"
             "    \"status\": s,         (string) Status (ENABLED/EXPIRED/REMOVE/etc)\n"
-            "    \"addr\": \"addr\",      (string) Masternode goods address\n"
+            "    \"addr\": \"addr\",      (string) Masternode jade address\n"
             "    \"version\": v,        (numeric) Masternode protocol version\n"
             "    \"lastseen\": ttt,     (numeric) The time in seconds since epoch (Jan 1 1970 GMT) of the last seen\n"
             "    \"activetime\": ttt,   (numeric) The time in seconds since epoch (Jan 1 1970 GMT) masternode has been active\n"
@@ -325,7 +325,7 @@ Value masternodeconnect(const Array& params, bool fHelp)
             "1. \"address\"     (string, required) IP or net address to connect to\n"
 
             "\nExamples:\n" +
-            HelpExampleCli("masternodeconnect", "\"192.168.0.6:33333\"") + HelpExampleRpc("masternodeconnect", "\"192.168.0.6:33333\""));
+            HelpExampleCli("masternodeconnect", "\"192.168.0.6:9111\"") + HelpExampleRpc("masternodeconnect", "\"192.168.0.6:9111\""));
 
     std::string strAddress = params[0].get_str();
 
@@ -735,7 +735,7 @@ Value getmasternodestatus (const Array& params, bool fHelp)
             "  \"txhash\": \"xxxx\",      (string) Collateral transaction hash\n"
             "  \"outputidx\": n,        (numeric) Collateral transaction output index number\n"
             "  \"netaddr\": \"xxxx\",     (string) Masternode network address\n"
-            "  \"addr\": \"xxxx\",        (string) Goods address for masternode payments\n"
+            "  \"addr\": \"xxxx\",        (string) JADE address for masternode payments\n"
             "  \"status\": \"xxxx\",      (string) Masternode status\n"
             "  \"message\": \"xxxx\"      (string) Masternode status message\n"
             "}\n"
@@ -777,7 +777,7 @@ Value getmasternodewinners (const Array& params, bool fHelp)
             "  {\n"
             "    \"nHeight\": n,           (numeric) block height\n"
             "    \"winner\": {\n"
-            "      \"address\": \"xxxx\",    (string) Goods MN address\n"
+            "      \"address\": \"xxxx\",    (string) JADE MN address\n"
             "      \"nVotes\": n,          (numeric) Number of votes for winner\n"
             "    }\n"
             "  }\n"
@@ -790,7 +790,7 @@ Value getmasternodewinners (const Array& params, bool fHelp)
             "    \"nHeight\": n,           (numeric) block height\n"
             "    \"winner\": [\n"
             "      {\n"
-            "        \"address\": \"xxxx\",  (string) Goods MN address\n"
+            "        \"address\": \"xxxx\",  (string) JADE MN address\n"
             "        \"nVotes\": n,        (numeric) Number of votes for winner\n"
             "      }\n"
             "      ,...\n"

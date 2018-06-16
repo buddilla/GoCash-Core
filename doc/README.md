@@ -1,39 +1,39 @@
-Goods Core
+JADE Core
 =====================
 
 Setup
 ---------------------
-[Goods Core](http://goods.org/wallet) is the original Goods client and it builds the backbone of the network. However, it downloads and stores the entire history of Goods transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
+[JADE Core](http://jade.org/wallet) is the original JADE client and it builds the backbone of the network. However, it downloads and stores the entire history of JADE transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
 
 Running
 ---------------------
-The following are some helpful notes on how to run Goods on your native platform.
+The following are some helpful notes on how to run JADE on your native platform.
 
 ### Unix
 
 Unpack the files into a directory and run:
 
-- bin/32/goods-qt (GUI, 32-bit) or bin/32/goodsd (headless, 32-bit)
-- bin/64/goods-qt (GUI, 64-bit) or bin/64/goodsd (headless, 64-bit)
+- bin/32/jade-qt (GUI, 32-bit) or bin/32/jaded (headless, 32-bit)
+- bin/64/jade-qt (GUI, 64-bit) or bin/64/jaded (headless, 64-bit)
 
 ### Windows
 
-Unpack the files into a directory, and then run goods-qt.exe.
+Unpack the files into a directory, and then run jade-qt.exe.
 
 ### OSX
 
-Drag Goods-Qt to your applications folder, and then run Goods-Qt.
+Drag JADE-Qt to your applications folder, and then run JADE-Qt.
 
 ### Need Help?
 
-* See the documentation at the [Goods Wiki](https://en.bitcoin.it/wiki/Main_Page) ***TODO***
+* See the documentation at the [JADE Wiki](https://en.bitcoin.it/wiki/Main_Page) ***TODO***
 for help and more information.
-* Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or on the [Goods Forum](http://forum.goods.org/).
-* Join one of our Slack groups [Goods Slack Groups](https://goods.org/slack-logins/).
+* Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or on the [JADE Forum](http://forum.jade.org/).
+* Join one of our Slack groups [JADE Slack Groups](https://jade.org/slack-logins/).
 
 Building
 ---------------------
-The following are developer notes on how to build Goods on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
+The following are developer notes on how to build JADE on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
 - [OSX Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
@@ -41,7 +41,7 @@ The following are developer notes on how to build Goods on your native platform.
 
 Development
 ---------------------
-The Goods repo's [root README](https://github.com/goodsproject/Goods/blob/master/README.md) contains relevant information on the development process and automated testing.
+The JADE repo's [root README](https://github.com/jadeproject/JADE/blob/master/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Multiwallet Qt Development](multiwallet-qt.md)
@@ -55,8 +55,8 @@ The Goods repo's [root README](https://github.com/goodsproject/Goods/blob/master
 
 ### Resources
 
-* Discuss on the [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or the [Goods](http://forum.goods.org/) forum.
-* Join the [Goods-Dev](https://goods-dev.slack.com/) Slack group ([Sign-Up](https://goods-dev.herokuapp.com/)).
+* Discuss on the [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or the [JADE](http://forum.jade.org/) forum.
+* Join the [JADE-Dev](https://jade-dev.slack.com/) Slack group ([Sign-Up](https://jade-dev.herokuapp.com/)).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

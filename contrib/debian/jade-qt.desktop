@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=JADE
+Comment=JADE P2P Cryptocurrency
+Comment[fr]=JADE, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=JADE, eşten eşe kriptografik sanal para birimi
+Exec=jade-qt %u
+Terminal=false
+Type=Application
+Icon=jade128
+MimeType=x-scheme-handler/jade;
+Categories=Office;Finance;

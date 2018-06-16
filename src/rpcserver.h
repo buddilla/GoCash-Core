@@ -96,7 +96,7 @@ public:
 };
 
 /**
- * Goods RPC command dispatcher.
+ * JADE RPC command dispatcher.
  */
 class CRPCTable
 {

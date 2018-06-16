@@ -1,10 +1,10 @@
 Sample configuration files for:
 
-SystemD: goodsd.service
-Upstart: goodsd.conf
-OpenRC:  goodsd.openrc
-         goodsd.openrcconf
-CentOS:  goodsd.init
+SystemD: jaded.service
+Upstart: jaded.conf
+OpenRC:  jaded.openrc
+         jaded.openrcconf
+CentOS:  jaded.init
 
 have been made available to assist packagers in creating node packages here.
 

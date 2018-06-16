@@ -7,7 +7,7 @@
 #define BITCOIN_COMPAT_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/goods-config.h"
+#include "config/jade-config.h"
 #endif
 
 #ifdef WIN32

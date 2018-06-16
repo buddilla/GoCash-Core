@@ -1,0 +1,26 @@
+# /etc/conf.d/jaded: config file for /etc/init.d/jaded
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/jade/jade.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/jaded"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/jaded.pid"
+
+# Where to write jaded data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/jaded"
+
+# User and group to own jaded process
+#BITCOIND_USER="jade"
+#BITCOIND_GROUP="jade"
+
+# Path to jaded executable
+#BITCOIND_BIN="/usr/bin/jaded"
+
+# Nice value to run jaded under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+BITCOIND_OPTS=""

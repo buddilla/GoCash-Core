@@ -210,7 +210,7 @@ public:
     }
 };
 
-/** RAII-style semagoods lock */
+/** RAII-style semajade lock */
 class CSemaphoreGrant
 {
 private:

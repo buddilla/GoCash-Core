@@ -66,15 +66,15 @@ bin_PROGRAMS =
 TESTS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += goodsd
+  bin_PROGRAMS += jaded
 endif
 
 if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += goods-cli goods-tx
+  bin_PROGRAMS += jade-cli jade-tx
 endif
 
 .PHONY: FORCE
-# goods core #
+# jade core #
 BITCOIN_CORE_H = \
   activemasternode.h \
   accumulators.h \
@@ -190,7 +190,7 @@ obj/build.h: FORCE
 	  $(abs_top_srcdir)
 libbitcoin_util_a-clientversion.$(OBJEXT): obj/build.h
 
-# server: shared between goodsd and goods-qt
+# server: shared between jaded and jade-qt
 libbitcoin_server_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
 libbitcoin_server_a_SOURCES = \
   addrman.cpp \
@@ -236,7 +236,7 @@ libbitcoin_zmq_a_SOURCES = \
   zmq/zmqpublishnotifier.cpp
 endif
 
-# wallet: shared between goodsd and goods-qt, but only linked
+# wallet: shared between jaded and jade-qt, but only linked
 # when wallet enabled
 
 libbitcoin_wallet_a_CFLAGS = -fPIC
@@ -332,7 +332,7 @@ libzerocoin_libbitcoin_zerocoin_a_SOURCES = \
   libzerocoin/Params.cpp \
   libzerocoin/SerialNumberSignatureOfKnowledge.cpp
 
-# common: shared between goodsd, and goods-qt and non-server tools
+# common: shared between jaded, and jade-qt and non-server tools
 libbitcoin_common_a_CPPFLAGS = $(BITCOIN_INCLUDES)
 libbitcoin_common_a_SOURCES = \
   accumulators.cpp \
@@ -392,7 +392,7 @@ libbitcoin_util_a_SOURCES += compat/glibc_compat.cpp
 libbitcoin_util_a_SOURCES += compat/glibcxx_compat.cpp
 endif
 
-# cli: shared between goods-cli and goods-qt
+# cli: shared between jade-cli and jade-qt
 libbitcoin_cli_a_CPPFLAGS = $(BITCOIN_INCLUDES)
 libbitcoin_cli_a_SOURCES = \
   rpcclient.cpp \
@@ -402,7 +402,7 @@ nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
 # bitcoind binary #
-goodsd_LDADD = \
+jaded_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UNIVALUE) \
@@ -414,26 +414,26 @@ goodsd_LDADD = \
   $(LIBSECP256K1)
 
 if ENABLE_ZMQ
-goodsd_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+jaded_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
 
 if ENABLE_WALLET
-goodsd_LDADD += libbitcoin_wallet.a
+jaded_LDADD += libbitcoin_wallet.a
 endif
-goodsd_SOURCES = goodsd.cpp
+jaded_SOURCES = jaded.cpp
 #
 
 if TARGET_WINDOWS
-goodsd_SOURCES += goodsd-res.rc
+jaded_SOURCES += jaded-res.rc
 endif
 
-goodsd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
-goodsd_CPPFLAGS = $(BITCOIN_INCLUDES)
-goodsd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+jaded_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+jaded_CPPFLAGS = $(BITCOIN_INCLUDES)
+jaded_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 
-# goods-cli binary #
-goods_cli_LDADD = \
+# jade-cli binary #
+jade_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBBITCOIN_UTIL) \
   $(BOOST_LIBS) \
@@ -441,14 +441,14 @@ goods_cli_LDADD = \
   $(CRYPTO_LIBS) \
   $(EVENT_LIBS)
 
-goods_cli_SOURCES = \
-  goods-cli.cpp
+jade_cli_SOURCES = \
+  jade-cli.cpp
 
-goods_cli_CPPFLAGS = $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+jade_cli_CPPFLAGS = $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
 #
 
-# goods-tx binary #
-goods_tx_LDADD = \
+# jade-tx binary #
+jade_tx_LDADD = \
   $(LIBBITCOIN_UNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_ZEROCOIN) \
@@ -458,15 +458,15 @@ goods_tx_LDADD = \
   $(BOOST_LIBS) \
   $(CRYPTO_LIBS)
 
-goods_tx_SOURCES = goods-tx.cpp
-goods_tx_CPPFLAGS = $(BITCOIN_INCLUDES)
+jade_tx_SOURCES = jade-tx.cpp
+jade_tx_CPPFLAGS = $(BITCOIN_INCLUDES)
 #
-goods_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+jade_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-goods_cli_SOURCES += goods-cli-res.rc
+jade_cli_SOURCES += jade-cli-res.rc
 endif
-goods_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+jade_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if BUILD_BITCOIN_LIBS
 include_HEADERS = script/bitcoinconsensus.h

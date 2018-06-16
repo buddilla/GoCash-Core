@@ -80,29 +80,29 @@ enum AvailableCoinsType {
     ALL_COINS = 1,
     ONLY_DENOMINATED = 2,
     ONLY_NOT10000IFMN = 3,
-    ONLY_NONDENOMINATED_NOT10000IFMN = 4, // ONLY_NONDENOMINATED and not 10000 GDS at the same time
+    ONLY_NONDENOMINATED_NOT10000IFMN = 4, // ONLY_NONDENOMINATED and not 10000 JADE at the same time
     ONLY_10000 = 5,                        // find masternode outputs including locked ones (use with caution)
     STAKABLE_COINS = 6                          // UTXO's that are valid for staking
 };
 
-// Possible states for zGDS send
+// Possible states for zJADE send
 enum ZerocoinSpendStatus {
-    ZGDS_SPEND_OKAY = 0,                            // No error
-    ZGDS_SPEND_ERROR = 1,                           // Unspecified class of errors, more details are (hopefully) in the returning text
-    ZGDS_WALLET_LOCKED = 2,                         // Wallet was locked
-    ZGDS_COMMIT_FAILED = 3,                         // Commit failed, reset status
-    ZGDS_ERASE_SPENDS_FAILED = 4,                   // Erasing spends during reset failed
-    ZGDS_ERASE_NEW_MINTS_FAILED = 5,                // Erasing new mints during reset failed
-    ZGDS_TRX_FUNDS_PROBLEMS = 6,                    // Everything related to available funds
-    ZGDS_TRX_CREATE = 7,                            // Everything related to create the transaction
-    ZGDS_TRX_CHANGE = 8,                            // Everything related to transaction change
-    ZGDS_TXMINT_GENERAL = 9,                        // General errors in MintToTxIn
-    ZGDS_INVALID_COIN = 10,                         // Selected mint coin is not valid
-    ZGDS_FAILED_ACCUMULATOR_INITIALIZATION = 11,    // Failed to initialize witness
-    ZGDS_INVALID_WITNESS = 12,                      // Spend coin transaction did not verify
-    ZGDS_BAD_SERIALIZATION = 13,                    // Transaction verification failed
-    ZGDS_SPENT_USED_ZGDS = 14,                      // Coin has already been spend
-    ZGDS_TX_TOO_LARGE = 15                          // The transaction is larger than the max tx size
+    ZJADE_SPEND_OKAY = 0,                            // No error
+    ZJADE_SPEND_ERROR = 1,                           // Unspecified class of errors, more details are (hopefully) in the returning text
+    ZJADE_WALLET_LOCKED = 2,                         // Wallet was locked
+    ZJADE_COMMIT_FAILED = 3,                         // Commit failed, reset status
+    ZJADE_ERASE_SPENDS_FAILED = 4,                   // Erasing spends during reset failed
+    ZJADE_ERASE_NEW_MINTS_FAILED = 5,                // Erasing new mints during reset failed
+    ZJADE_TRX_FUNDS_PROBLEMS = 6,                    // Everything related to available funds
+    ZJADE_TRX_CREATE = 7,                            // Everything related to create the transaction
+    ZJADE_TRX_CHANGE = 8,                            // Everything related to transaction change
+    ZJADE_TXMINT_GENERAL = 9,                        // General errors in MintToTxIn
+    ZJADE_INVALID_COIN = 10,                         // Selected mint coin is not valid
+    ZJADE_FAILED_ACCUMULATOR_INITIALIZATION = 11,    // Failed to initialize witness
+    ZJADE_INVALID_WITNESS = 12,                      // Spend coin transaction did not verify
+    ZJADE_BAD_SERIALIZATION = 13,                    // Transaction verification failed
+    ZJADE_SPENT_USED_ZJADE = 14,                      // Coin has already been spend
+    ZJADE_TX_TOO_LARGE = 15                          // The transaction is larger than the max tx size
 };
 
 struct CompactTallyItem {
@@ -207,7 +207,7 @@ public:
     std::string ResetMintZerocoin(bool fExtendedSearch);
     std::string ResetSpentZerocoin();
     void ReconsiderZerocoins(std::list<CZerocoinMint>& listMintsRestored);
-    void ZGoodsBackupWallet();
+    void ZJADEBackupWallet();
 
     /** Zerocin entry changed.
     * @note called with lock cs_wallet held.
@@ -310,7 +310,7 @@ public:
         return fEnableZeromint;
     }
 
-    void setZGoodsAutoBackups(bool fEnabled)
+    void setZJADEAutoBackups(bool fEnabled)
     {
         fBackupMints = fEnabled;
     }

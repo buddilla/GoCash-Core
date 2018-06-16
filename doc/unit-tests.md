@@ -6,13 +6,13 @@ and tests weren't explicitly disabled.
 
 After configuring, they can be run with 'make check'.
 
-To run the goodsd tests manually, launch src/test/test_goods .
+To run the jaded tests manually, launch src/test/test_jade .
 
-To add more goodsd tests, add `BOOST_AUTO_TEST_CASE` functions to the existing
+To add more jaded tests, add `BOOST_AUTO_TEST_CASE` functions to the existing
 .cpp files in the test/ directory or add new .cpp files that
 implement new BOOST_AUTO_TEST_SUITE sections.
 
-To run the goods-qt tests manually, launch src/qt/test/goods-qt_test
+To run the jade-qt tests manually, launch src/qt/test/jade-qt_test
 
-To add more goods-qt tests, add them to the `src/qt/test/` directory and
+To add more jade-qt tests, add them to the `src/qt/test/` directory and
 the `src/qt/test/test_main.cpp` file.

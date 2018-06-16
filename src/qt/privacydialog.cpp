@@ -14,7 +14,7 @@
 #include "sendcoinsentry.h"
 #include "walletmodel.h"
 #include "coincontrol.h"
-#include "zgoodscontroldialog.h"
+#include "zjadecontroldialog.h"
 #include "spork.h"
 
 #include <QClipboard>
@@ -30,14 +30,14 @@ PrivacyDialog::PrivacyDialog(QWidget* parent) : QDialog(parent),
     nDisplayUnit = 0; // just make sure it's not unitialized
     ui->setupUi(this);
 
-    // "Spending 999999 zGDS ought to be enough for anybody." - Bill Gates, 2017
-    ui->zGDSpayAmount->setValidator( new QDoubleValidator(0.0, 21000000.0, 20, this) );
+    // "Spending 999999 zJADE ought to be enough for anybody." - Bill Gates, 2017
+    ui->zJADEpayAmount->setValidator( new QDoubleValidator(0.0, 21000000.0, 20, this) );
     ui->labelMintAmountValue->setValidator( new QIntValidator(0, 999999, this) );
 
     // Default texts for (mini-) coincontrol
     ui->labelCoinControlQuantity->setText (tr("Coins automatically selected"));
     ui->labelCoinControlAmount->setText (tr("Coins automatically selected"));
-    ui->labelzGDSSyncStatus->setText("(" + tr("out of sync") + ")");
+    ui->labelzJADESyncStatus->setText("(" + tr("out of sync") + ")");
 
     // Sunken frame for minting messages
     ui->TEMintStatus->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
@@ -79,7 +79,7 @@ PrivacyDialog::PrivacyDialog(QWidget* parent) : QDialog(parent),
     ui->labelZsupplyText1000->setText(tr("Denom. <b>1000</b>:"));
     ui->labelZsupplyText5000->setText(tr("Denom. <b>5000</b>:"));
 
-    // Goods settings
+    // JADE settings
     QSettings settings;
     if (!settings.contains("nSecurityLevel")){
         nSecurityLevel = 42;
@@ -107,11 +107,11 @@ PrivacyDialog::PrivacyDialog(QWidget* parent) : QDialog(parent),
 
     //temporary disable for maintenance
     if(GetAdjustedTime() > GetSporkValue(SPORK_16_ZEROCOIN_MAINTENANCE_MODE)) {
-        ui->pushButtonMintzGDS->setEnabled(false);
-        ui->pushButtonMintzGDS->setToolTip(tr("zGDS is currently disabled due to maintenance."));
+        ui->pushButtonMintzJADE->setEnabled(false);
+        ui->pushButtonMintzJADE->setToolTip(tr("zJADE is currently disabled due to maintenance."));
 
-        ui->pushButtonSpendzGDS->setEnabled(false);
-        ui->pushButtonSpendzGDS->setToolTip(tr("zGDS is currently disabled due to maintenance."));
+        ui->pushButtonSpendzJADE->setEnabled(false);
+        ui->pushButtonSpendzJADE->setToolTip(tr("zJADE is currently disabled due to maintenance."));
     }
 }
 
@@ -150,18 +150,18 @@ void PrivacyDialog::on_addressBookButton_clicked()
     dlg.setModel(walletModel->getAddressTableModel());
     if (dlg.exec()) {
         ui->payTo->setText(dlg.getReturnValue());
-        ui->zGDSpayAmount->setFocus();
+        ui->zJADEpayAmount->setFocus();
     }
 }
 
-void PrivacyDialog::on_pushButtonMintzGDS_clicked()
+void PrivacyDialog::on_pushButtonMintzJADE_clicked()
 {
     if (!walletModel || !walletModel->getOptionsModel())
         return;
 
     if(GetAdjustedTime() > GetSporkValue(SPORK_16_ZEROCOIN_MAINTENANCE_MODE)) {
         QMessageBox::information(this, tr("Mint Zerocoin"),
-                                 tr("zGDS is currently undergoing maintenance."), QMessageBox::Ok,
+                                 tr("zJADE is currently undergoing maintenance."), QMessageBox::Ok,
                                  QMessageBox::Ok);
         return;
     }
@@ -189,7 +189,7 @@ void PrivacyDialog::on_pushButtonMintzGDS_clicked()
         return;
     }
 
-    ui->TEMintStatus->setPlainText(tr("Minting ") + ui->labelMintAmountValue->text() + " zGDS...");
+    ui->TEMintStatus->setPlainText(tr("Minting ") + ui->labelMintAmountValue->text() + " zJADE...");
     ui->TEMintStatus->repaint ();
 
     int64_t nTime = GetTimeMillis();
@@ -207,7 +207,7 @@ void PrivacyDialog::on_pushButtonMintzGDS_clicked()
     double fDuration = (double)(GetTimeMillis() - nTime)/1000.0;
 
     // Minting successfully finished. Show some stats for entertainment.
-    QString strStatsHeader = tr("Successfully minted ") + ui->labelMintAmountValue->text() + tr(" zGDS in ") +
+    QString strStatsHeader = tr("Successfully minted ") + ui->labelMintAmountValue->text() + tr(" zJADE in ") +
                              QString::number(fDuration) + tr(" sec. Used denominations:\n");
 
     // Clear amount to avoid double spending when accidentally clicking twice
@@ -266,7 +266,7 @@ void PrivacyDialog::on_pushButtonSpentReset_clicked()
     return;
 }
 
-void PrivacyDialog::on_pushButtonSpendzGDS_clicked()
+void PrivacyDialog::on_pushButtonSpendzJADE_clicked()
 {
 
     if (!walletModel || !walletModel->getOptionsModel() || !pwalletMain)
@@ -274,7 +274,7 @@ void PrivacyDialog::on_pushButtonSpendzGDS_clicked()
 
     if(GetAdjustedTime() > GetSporkValue(SPORK_16_ZEROCOIN_MAINTENANCE_MODE)) {
         QMessageBox::information(this, tr("Mint Zerocoin"),
-                                 tr("zGDS is currently undergoing maintenance."), QMessageBox::Ok, QMessageBox::Ok);
+                                 tr("zJADE is currently undergoing maintenance."), QMessageBox::Ok, QMessageBox::Ok);
         return;
     }
 
@@ -286,24 +286,24 @@ void PrivacyDialog::on_pushButtonSpendzGDS_clicked()
             // Unlock wallet was cancelled
             return;
         }
-        // Wallet is unlocked now, sedn zGDS
-        sendzGDS();
+        // Wallet is unlocked now, sedn zJADE
+        sendzJADE();
         return;
     }
-    // Wallet already unlocked or not encrypted at all, send zGDS
-    sendzGDS();
+    // Wallet already unlocked or not encrypted at all, send zJADE
+    sendzJADE();
 }
 
-void PrivacyDialog::on_pushButtonZGoodsControl_clicked()
+void PrivacyDialog::on_pushButtonZJADEControl_clicked()
 {
-    ZGoodsControlDialog* zGoodsControl = new ZGoodsControlDialog(this);
-    zGoodsControl->setModel(walletModel);
-    zGoodsControl->exec();
+    ZJADEControlDialog* zJADEControl = new ZJADEControlDialog(this);
+    zJADEControl->setModel(walletModel);
+    zJADEControl->exec();
 }
 
-void PrivacyDialog::setZGoodsControlLabels(int64_t nAmount, int nQuantity)
+void PrivacyDialog::setZJADEControlLabels(int64_t nAmount, int nQuantity)
 {
-    ui->labelzGDSSelected_int->setText(QString::number(nAmount));
+    ui->labelzJADESelected_int->setText(QString::number(nAmount));
     ui->labelQuantitySelected_int->setText(QString::number(nQuantity));
 }
 
@@ -312,7 +312,7 @@ static inline int64_t roundint64(double d)
     return (int64_t)(d > 0 ? d + 0.5 : d - 0.5);
 }
 
-void PrivacyDialog::sendzGDS()
+void PrivacyDialog::sendzJADE()
 {
     QSettings settings;
 
@@ -323,31 +323,31 @@ void PrivacyDialog::sendzGDS()
     }
     else{
         if (!address.IsValid()) {
-            QMessageBox::warning(this, tr("Spend Zerocoin"), tr("Invalid Goods Address"), QMessageBox::Ok, QMessageBox::Ok);
+            QMessageBox::warning(this, tr("Spend Zerocoin"), tr("Invalid JADE Address"), QMessageBox::Ok, QMessageBox::Ok);
             ui->payTo->setFocus();
             return;
         }
     }
 
     // Double is allowed now
-    double dAmount = ui->zGDSpayAmount->text().toDouble();
+    double dAmount = ui->zJADEpayAmount->text().toDouble();
     CAmount nAmount = roundint64(dAmount* COIN);
 
     // Check amount validity
     if (!MoneyRange(nAmount) || nAmount <= 0.0) {
         QMessageBox::warning(this, tr("Spend Zerocoin"), tr("Invalid Send Amount"), QMessageBox::Ok, QMessageBox::Ok);
-        ui->zGDSpayAmount->setFocus();
+        ui->zJADEpayAmount->setFocus();
         return;
     }
 
-    // Convert change to zGDS
+    // Convert change to zJADE
     bool fMintChange = ui->checkBoxMintChange->isChecked();
 
     // Persist minimize change setting
     fMinimizeChange = ui->checkBoxMinimizeChange->isChecked();
     settings.setValue("fMinimizeChange", fMinimizeChange);
 
-    // Warn for additional fees if amount is not an integer and change as zGDS is requested
+    // Warn for additional fees if amount is not an integer and change as zJADE is requested
     bool fWholeNumber = floor(dAmount) == dAmount;
     double dzFee = 0.0;
 
@@ -356,7 +356,7 @@ void PrivacyDialog::sendzGDS()
 
     if(!fWholeNumber && fMintChange){
         QString strFeeWarning = "You've entered an amount with fractional digits and want the change to be converted to Zerocoin.<br /><br /><b>";
-        strFeeWarning += QString::number(dzFee, 'f', 8) + " GDS </b>will be added to the standard transaction fees!<br />";
+        strFeeWarning += QString::number(dzFee, 'f', 8) + " JADE </b>will be added to the standard transaction fees!<br />";
         QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm additional Fees"),
             strFeeWarning,
             QMessageBox::Yes | QMessageBox::Cancel,
@@ -364,7 +364,7 @@ void PrivacyDialog::sendzGDS()
 
         if (retval != QMessageBox::Yes) {
             // Sending canceled
-            ui->zGDSpayAmount->setFocus();
+            ui->zJADEpayAmount->setFocus();
             return;
         }
     }
@@ -383,7 +383,7 @@ void PrivacyDialog::sendzGDS()
 
     // General info
     QString strQuestionString = tr("Are you sure you want to send?<br /><br />");
-    QString strAmount = "<b>" + QString::number(dAmount, 'f', 8) + " zGDS</b>";
+    QString strAmount = "<b>" + QString::number(dAmount, 'f', 8) + " zJADE</b>";
     QString strAddress = tr(" to address ") + QString::fromStdString(address.ToString()) + strAddressLabel + " <br />";
 
     if(ui->payTo->text().isEmpty()){
@@ -409,13 +409,13 @@ void PrivacyDialog::sendzGDS()
     ui->TEMintStatus->setPlainText(tr("Spending Zerocoin.\nComputationally expensive, might need several minutes depending on the selected Security Level and your hardware. \nPlease be patient..."));
     ui->TEMintStatus->repaint();
 
-    // use mints from zGoods selector if applicable
+    // use mints from zJADE selector if applicable
     vector<CZerocoinMint> vMintsSelected;
-    if (!ZGoodsControlDialog::listSelectedMints.empty()) {
-        vMintsSelected = ZGoodsControlDialog::GetSelectedMints();
+    if (!ZJADEControlDialog::listSelectedMints.empty()) {
+        vMintsSelected = ZJADEControlDialog::GetSelectedMints();
     }
 
-    // Spend zGDS
+    // Spend zJADE
     CWalletTx wtxNew;
     CZerocoinSpendReceipt receipt;
     bool fSuccess = false;
@@ -431,7 +431,7 @@ void PrivacyDialog::sendzGDS()
     // Display errors during spend
     if (!fSuccess) {
         int nNeededSpends = receipt.GetNeededSpends(); // Number of spends we would need for this transaction
-        const int nMaxSpends = Params().Zerocoin_MaxSpendsPerTransaction(); // Maximum possible spends for one zGDS transaction
+        const int nMaxSpends = Params().Zerocoin_MaxSpendsPerTransaction(); // Maximum possible spends for one zJADE transaction
         if (nNeededSpends > nMaxSpends) {
             QString strStatusMessage = tr("Too much inputs (") + QString::number(nNeededSpends, 10) + tr(") needed. \nMaximum allowed: ") + QString::number(nMaxSpends, 10);
             strStatusMessage += tr("\nEither mint higher denominations (so fewer inputs are needed) or reduce the amount to spend.");
@@ -442,20 +442,20 @@ void PrivacyDialog::sendzGDS()
             QMessageBox::warning(this, tr("Spend Zerocoin"), receipt.GetStatusMessage().c_str(), QMessageBox::Ok, QMessageBox::Ok);
             ui->TEMintStatus->setPlainText(tr("Spend Zerocoin failed with status = ") +QString::number(receipt.GetStatus(), 10) + "\n" + "Message: " + QString::fromStdString(receipt.GetStatusMessage()));
         }
-        ui->zGDSpayAmount->setFocus();
+        ui->zJADEpayAmount->setFocus();
         ui->TEMintStatus->repaint();
         return;
     }
 
-    // Clear zgoods selector in case it was used
-    ZGoodsControlDialog::listSelectedMints.clear();
+    // Clear zjade selector in case it was used
+    ZJADEControlDialog::listSelectedMints.clear();
 
     // Some statistics for entertainment
     QString strStats = "";
     CAmount nValueIn = 0;
     int nCount = 0;
     for (CZerocoinSpend spend : receipt.GetSpends()) {
-        strStats += tr("zGoods Spend #: ") + QString::number(nCount) + ", ";
+        strStats += tr("zJADE Spend #: ") + QString::number(nCount) + ", ";
         strStats += tr("denomination: ") + QString::number(spend.GetDenomination()) + ", ";
         strStats += tr("serial: ") + spend.GetSerial().ToString().c_str() + "\n";
         strStats += tr("Spend is 1 of : ") + QString::number(spend.GetMintCount()) + " mints in the accumulator\n";
@@ -464,13 +464,13 @@ void PrivacyDialog::sendzGDS()
 
     CAmount nValueOut = 0;
     for (const CTxOut& txout: wtxNew.vout) {
-        strStats += tr("value out: ") + FormatMoney(txout.nValue).c_str() + " Goods, ";
+        strStats += tr("value out: ") + FormatMoney(txout.nValue).c_str() + " JADE, ";
         nValueOut += txout.nValue;
 
         strStats += tr("address: ");
         CTxDestination dest;
         if(txout.scriptPubKey.IsZerocoinMint())
-            strStats += tr("zGoods Mint");
+            strStats += tr("zJADE Mint");
         else if(ExtractDestination(txout.scriptPubKey, dest))
             strStats += tr(CBitcoinAddress(dest).ToString().c_str());
         strStats += "\n";
@@ -485,7 +485,7 @@ void PrivacyDialog::sendzGDS()
     strReturn += strStats;
 
     // Clear amount to avoid double spending when accidentally clicking twice
-    ui->zGDSpayAmount->setText ("0");
+    ui->zJADEpayAmount->setText ("0");
 
     ui->TEMintStatus->setPlainText(strReturn);
     ui->TEMintStatus->repaint();
@@ -627,7 +627,7 @@ void PrivacyDialog::setBalance(const CAmount& balance, const CAmount& unconfirme
 
         strDenomStats = strUnconfirmed + QString::number(mapDenomBalances.at(denom)) + " x " +
                         QString::number(nCoins) + " = <b>" +
-                        QString::number(nSumPerCoin) + " zGDS </b>";
+                        QString::number(nSumPerCoin) + " zJADE </b>";
 
         switch (nCoins) {
             case libzerocoin::CoinDenomination::ZQ_ONE:
@@ -665,9 +665,9 @@ void PrivacyDialog::setBalance(const CAmount& balance, const CAmount& unconfirme
         nLockedBalance = walletModel->getLockedBalance();
     }
 
-    ui->labelzAvailableAmount->setText(QString::number(zerocoinBalance/COIN) + QString(" zGDS "));
-    ui->labelzAvailableAmount_2->setText(QString::number(matureZerocoinBalance/COIN) + QString(" zGDS "));
-    ui->labelzGDSAmountValue->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, balance - immatureBalance - nLockedBalance, false, BitcoinUnits::separatorAlways));
+    ui->labelzAvailableAmount->setText(QString::number(zerocoinBalance/COIN) + QString(" zJADE "));
+    ui->labelzAvailableAmount_2->setText(QString::number(matureZerocoinBalance/COIN) + QString(" zJADE "));
+    ui->labelzJADEAmountValue->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, balance - immatureBalance - nLockedBalance, false, BitcoinUnits::separatorAlways));
 }
 
 void PrivacyDialog::updateDisplayUnit()
@@ -683,7 +683,7 @@ void PrivacyDialog::updateDisplayUnit()
 
 void PrivacyDialog::showOutOfSyncWarning(bool fShow)
 {
-    ui->labelzGDSSyncStatus->setVisible(fShow);
+    ui->labelzJADESyncStatus->setVisible(fShow);
 }
 
 void PrivacyDialog::keyPressEvent(QKeyEvent* event)

@@ -17,7 +17,7 @@ osx=true
 SIGNER=
 VERSION=
 commit=false
-url=https://github.com/goodsproject/goods
+url=https://github.com/jadeproject/jade
 proc=2
 mem=2000
 lxc=true
@@ -31,7 +31,7 @@ commitFiles=true
 read -d '' usage <<- EOF
 Usage: $scriptName [-c|u|v|b|s|B|o|h|j|m|] signer version
 
-Run this script from the directory containing the goods, gitian-builder, gitian.sigs, and goods-detached-sigs.
+Run this script from the directory containing the jade, gitian-builder, gitian.sigs, and jade-detached-sigs.
 
 Arguments:
 signer          GPG signer to sign each build assert file
@@ -39,7 +39,7 @@ version		Version number, commit, or branch to build. If building a commit or bra
 
 Options:
 -c|--commit	Indicate that the version argument is for a commit or branch
--u|--url	Specify the URL of the repository. Default is https://github.com/goodsproject/goods
+-u|--url	Specify the URL of the repository. Default is https://github.com/jadeproject/jade
 -v|--verify 	Verify the gitian build
 -b|--build	Do a gitian build
 -s|--sign	Make signed binaries for Windows and Mac OSX
@@ -237,8 +237,8 @@ echo ${COMMIT}
 if [[ $setup = true ]]
 then
     sudo apt-get install ruby apache2 git apt-cacher-ng python-vm-builder qemu-kvm qemu-utils
-    git clone https://github.com/goodsproject/gitian.sigs.git
-    git clone https://github.com/goodsproject/goods-detached-sigs.git
+    git clone https://github.com/jadeproject/gitian.sigs.git
+    git clone https://github.com/jadeproject/jade-detached-sigs.git
     git clone https://github.com/devrandom/gitian-builder.git
     pushd ./gitian-builder
     if [[ -n "$USE_LXC" ]]
@@ -252,7 +252,7 @@ then
 fi
 
 # Set up build
-pushd ./goods
+pushd ./jade
 git fetch
 git checkout ${COMMIT}
 popd
@@ -261,7 +261,7 @@ popd
 if [[ $build = true ]]
 then
 	# Make output folder
-	mkdir -p ./goods-binaries/${VERSION}
+	mkdir -p ./jade-binaries/${VERSION}
 
 	# Build Dependencies
 	echo ""
@@ -271,7 +271,7 @@ then
 	mkdir -p inputs
 	wget -N -P inputs $osslPatchUrl
 	wget -N -P inputs $osslTarUrl
-	make -C ../goods/depends download SOURCES_PATH=`pwd`/cache/common
+	make -C ../jade/depends download SOURCES_PATH=`pwd`/cache/common
 
 	# Linux
 	if [[ $linux = true ]]
@@ -279,9 +279,9 @@ then
             echo ""
 	    echo "Compiling ${VERSION} Linux"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit goods=${COMMIT} --url goods=${url} ../goods/contrib/gitian-descriptors/gitian-linux.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../goods/contrib/gitian-descriptors/gitian-linux.yml
-	    mv build/out/goods-*.tar.gz build/out/src/goods-*.tar.gz ../goods-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit jade=${COMMIT} --url jade=${url} ../jade/contrib/gitian-descriptors/gitian-linux.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../jade/contrib/gitian-descriptors/gitian-linux.yml
+	    mv build/out/jade-*.tar.gz build/out/src/jade-*.tar.gz ../jade-binaries/${VERSION}
 	fi
 	# Windows
 	if [[ $windows = true ]]
@@ -289,10 +289,10 @@ then
 	    echo ""
 	    echo "Compiling ${VERSION} Windows"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit goods=${COMMIT} --url goods=${url} ../goods/contrib/gitian-descriptors/gitian-win.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../goods/contrib/gitian-descriptors/gitian-win.yml
-	    mv build/out/goods-*-win-unsigned.tar.gz inputs/goods-win-unsigned.tar.gz
-	    mv build/out/goods-*.zip build/out/goods-*.exe ../goods-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit jade=${COMMIT} --url jade=${url} ../jade/contrib/gitian-descriptors/gitian-win.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../jade/contrib/gitian-descriptors/gitian-win.yml
+	    mv build/out/jade-*-win-unsigned.tar.gz inputs/jade-win-unsigned.tar.gz
+	    mv build/out/jade-*.zip build/out/jade-*.exe ../jade-binaries/${VERSION}
 	fi
 	# Mac OSX
 	if [[ $osx = true ]]
@@ -300,10 +300,10 @@ then
 	    echo ""
 	    echo "Compiling ${VERSION} Mac OSX"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit goods=${COMMIT} --url goods=${url} ../goods/contrib/gitian-descriptors/gitian-osx.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../goods/contrib/gitian-descriptors/gitian-osx.yml
-	    mv build/out/goods-*-osx-unsigned.tar.gz inputs/goods-osx-unsigned.tar.gz
-	    mv build/out/goods-*.tar.gz build/out/goods-*.dmg ../goods-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit jade=${COMMIT} --url jade=${url} ../jade/contrib/gitian-descriptors/gitian-osx.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../jade/contrib/gitian-descriptors/gitian-osx.yml
+	    mv build/out/jade-*-osx-unsigned.tar.gz inputs/jade-osx-unsigned.tar.gz
+	    mv build/out/jade-*.tar.gz build/out/jade-*.dmg ../jade-binaries/${VERSION}
 	fi
 	# AArch64
 	if [[ $aarch64 = true ]]
@@ -311,9 +311,9 @@ then
 	    echo ""
 	    echo "Compiling ${VERSION} AArch64"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit goods=${COMMIT} --url goods=${url} ../goods/contrib/gitian-descriptors/gitian-aarch64.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-aarch64 --destination ../gitian.sigs/ ../goods/contrib/gitian-descriptors/gitian-aarch64.yml
-	    mv build/out/goods-*.tar.gz build/out/src/goods-*.tar.gz ../goods-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit jade=${COMMIT} --url jade=${url} ../jade/contrib/gitian-descriptors/gitian-aarch64.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-aarch64 --destination ../gitian.sigs/ ../jade/contrib/gitian-descriptors/gitian-aarch64.yml
+	    mv build/out/jade-*.tar.gz build/out/src/jade-*.tar.gz ../jade-binaries/${VERSION}
 	popd
 
         if [[ $commitFiles = true ]]
@@ -340,32 +340,32 @@ then
 	echo ""
 	echo "Verifying v${VERSION} Linux"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-linux ../goods/contrib/gitian-descriptors/gitian-linux.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-linux ../jade/contrib/gitian-descriptors/gitian-linux.yml
 	# Windows
 	echo ""
 	echo "Verifying v${VERSION} Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-unsigned ../goods/contrib/gitian-descriptors/gitian-win.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-unsigned ../jade/contrib/gitian-descriptors/gitian-win.yml
 	# Mac OSX
 	echo ""
 	echo "Verifying v${VERSION} Mac OSX"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-unsigned ../goods/contrib/gitian-descriptors/gitian-osx.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-unsigned ../jade/contrib/gitian-descriptors/gitian-osx.yml
 	# AArch64
 	echo ""
 	echo "Verifying v${VERSION} AArch64"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-aarch64 ../goods/contrib/gitian-descriptors/gitian-aarch64.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-aarch64 ../jade/contrib/gitian-descriptors/gitian-aarch64.yml
 	# Signed Windows
 	echo ""
 	echo "Verifying v${VERSION} Signed Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../goods/contrib/gitian-descriptors/gitian-osx-signer.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../jade/contrib/gitian-descriptors/gitian-osx-signer.yml
 	# Signed Mac OSX
 	echo ""
 	echo "Verifying v${VERSION} Signed Mac OSX"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../goods/contrib/gitian-descriptors/gitian-osx-signer.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../jade/contrib/gitian-descriptors/gitian-osx-signer.yml
 	popd
 fi
 
@@ -380,10 +380,10 @@ then
 	    echo ""
 	    echo "Signing ${VERSION} Windows"
 	    echo ""
-	    ./bin/gbuild -i --commit signature=${COMMIT} ../goods/contrib/gitian-descriptors/gitian-win-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../goods/contrib/gitian-descriptors/gitian-win-signer.yml
-	    mv build/out/goods-*win64-setup.exe ../goods-binaries/${VERSION}
-	    mv build/out/goods-*win32-setup.exe ../goods-binaries/${VERSION}
+	    ./bin/gbuild -i --commit signature=${COMMIT} ../jade/contrib/gitian-descriptors/gitian-win-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../jade/contrib/gitian-descriptors/gitian-win-signer.yml
+	    mv build/out/jade-*win64-setup.exe ../jade-binaries/${VERSION}
+	    mv build/out/jade-*win32-setup.exe ../jade-binaries/${VERSION}
 	fi
 	# Sign Mac OSX
 	if [[ $osx = true ]]
@@ -391,9 +391,9 @@ then
 	    echo ""
 	    echo "Signing ${VERSION} Mac OSX"
 	    echo ""
-	    ./bin/gbuild -i --commit signature=${COMMIT} ../goods/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../goods/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    mv build/out/goods-osx-signed.dmg ../goods-binaries/${VERSION}/goods-${VERSION}-osx.dmg
+	    ./bin/gbuild -i --commit signature=${COMMIT} ../jade/contrib/gitian-descriptors/gitian-osx-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../jade/contrib/gitian-descriptors/gitian-osx-signer.yml
+	    mv build/out/jade-osx-signed.dmg ../jade-binaries/${VERSION}/jade-${VERSION}-osx.dmg
 	fi
 	popd
 

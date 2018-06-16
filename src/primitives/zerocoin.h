@@ -1,8 +1,8 @@
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef GDS_ZEROCOIN_H
-#define GDS_ZEROCOIN_H
+#ifndef JADE_ZEROCOIN_H
+#define JADE_ZEROCOIN_H
 
 #include <amount.h>
 #include <limits.h>
@@ -189,4 +189,4 @@ public:
     int GetNeededSpends();
 };
 
-#endif //GDS_ZEROCOIN_H
+#endif //JADE_ZEROCOIN_H

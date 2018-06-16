@@ -9,8 +9,8 @@
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between goods-cli and goodsd)
- * of a given instance of the Goods system.
+ * CBaseChainParams defines the base parameters (shared between jade-cli and jaded)
+ * of a given instance of the JADE system.
  */
 class CBaseChainParams
 {

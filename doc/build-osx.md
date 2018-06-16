@@ -1,6 +1,6 @@
 Mac OS X Build Instructions and Notes
 ====================================
-This guide will show you how to build goodsd (headless client) for OSX.
+This guide will show you how to build jaded (headless client) for OSX.
 
 Notes
 -----
@@ -42,14 +42,14 @@ Instructions: Homebrew
         
         Note: On High Sierra (or when libzmq cannot be found), libzmq should be replaced with zeromq
 
-### Building `goodsd`
+### Building `jaded`
 
 1. Clone the github tree to get the source code and go into the directory.
 
-        git clone https://github.com/goodsproject/Goods.git
-        cd Goods
+        git clone https://github.com/jadeproject/JADE.git
+        cd JADE
 
-2.  Build goodsd:
+2.  Build jaded:
         
         chmod +x share/genbuild.sh autogen.sh 
         ./autogen.sh
@@ -62,7 +62,7 @@ Instructions: Homebrew
 
         make check
 
-4.  (Optional) You can also install goodsd to your path:
+4.  (Optional) You can also install jaded to your path:
 
         make install
 
@@ -74,7 +74,7 @@ Download Qt Creator from http://www.qt.io/download/. Download the "community edi
 1. Make sure you installed everything through homebrew mentioned above
 2. Do a proper ./configure --with-gui=qt5 --enable-debug
 3. In Qt Creator do "New Project" -> Import Project -> Import Existing Project
-4. Enter "goods-qt" as project name, enter src/qt as location
+4. Enter "jade-qt" as project name, enter src/qt as location
 5. Leave the file selection as it is
 6. Confirm the "summary page"
 7. In the "Projects" tab select "Manage Kits..."
@@ -84,11 +84,11 @@ Download Qt Creator from http://www.qt.io/download/. Download the "community edi
 
 Creating a release build
 ------------------------
-You can ignore this section if you are building `goodsd` for your own use.
+You can ignore this section if you are building `jaded` for your own use.
 
-goodsd/goods-cli binaries are not included in the goods-Qt.app bundle.
+jaded/jade-cli binaries are not included in the jade-Qt.app bundle.
 
-If you are building `goodsd` or `goods-qt` for others, your build machine should be set up
+If you are building `jaded` or `jade-qt` for others, your build machine should be set up
 as follows for maximum compatibility:
 
 All dependencies should be compiled with these flags:
@@ -97,33 +97,33 @@ All dependencies should be compiled with these flags:
  -arch x86_64
  -isysroot $(xcode-select --print-path)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk
 
-Once dependencies are compiled, see release-process.md for how the Goods-Qt.app
+Once dependencies are compiled, see release-process.md for how the JADE-Qt.app
 bundle is packaged and signed to create the .dmg disk image that is distributed.
 
 Running
 -------
 
-It's now available at `./goodsd`, provided that you are still in the `src`
+It's now available at `./jaded`, provided that you are still in the `src`
 directory. We have to first create the RPC configuration file, though.
 
-Run `./goodsd` to get the filename where it should be put, or just try these
+Run `./jaded` to get the filename where it should be put, or just try these
 commands:
 
-    echo -e "rpcuser=goodsrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Goods/goods.conf"
-    chmod 600 "/Users/${USER}/Library/Application Support/Goods/goods.conf"
+    echo -e "rpcuser=jaderpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/JADE/jade.conf"
+    chmod 600 "/Users/${USER}/Library/Application Support/JADE/jade.conf"
 
 The next time you run it, it will start downloading the blockchain, but it won't
 output anything while it's doing this. This process may take several hours;
 you can monitor its process by looking at the debug.log file, like this:
 
-    tail -f $HOME/Library/Application\ Support/Goods/debug.log
+    tail -f $HOME/Library/Application\ Support/JADE/debug.log
 
 Other commands:
 -------
 
-    ./goodsd -daemon # to start the goods daemon.
-    ./goods-cli --help  # for a list of command-line options.
-    ./goods-cli help    # When the daemon is running, to get a list of RPC commands
+    ./jaded -daemon # to start the jade daemon.
+    ./jade-cli --help  # for a list of command-line options.
+    ./jade-cli help    # When the daemon is running, to get a list of RPC commands
     
 Troubleshooting:<a name="trouble"></a>
 ---------
@@ -141,7 +141,7 @@ Troubleshooting:<a name="trouble"></a>
         make
         sudo make install
 
-        Then configure Goods with this build of BerkeleyDB,
+        Then configure JADE with this build of BerkeleyDB,
         ./configure --with-gui=qt5  LDFLAGS="-L/usr/local/BerkeleyDB.4.8/lib/" CPPFLAGS="-I/usr/local/BerkeleyDB.4.8/include/"
                 
         
@@ -162,7 +162,7 @@ Otherwise, open Terminal and type in the command to install homebrew:
 
 ```/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"```
 
-The use homebrew to install a number of unix programs and libraries needed to build the Goods wallet:
+The use homebrew to install a number of unix programs and libraries needed to build the JADE wallet:
 
 ```brew install autoconf automake berkeley-db@4 boost@1.57 git libevent libtool miniupnpc openssl pkg-config protobuf qt zeromq```
 
@@ -176,8 +176,8 @@ Next, switch into your Downloads folder:
 
 The next step is to download the current version of the wallet from Github and go into that directory:
 
-```git clone https://github.com/goodsproject/goods.git```
-```cd Goods```
+```git clone https://github.com/jadeproject/jade.git```
+```cd JADE```
 
 Now set some configuration flags:
 
@@ -189,15 +189,15 @@ Then we begin the build process:
 ```./configure```
 ```make```
 
-You have the choice to build the GUI Goods wallet as a Mac OSX app, described in “How to build the Goods-Qt App”. If, for whatever reason, you prefer to use the command line tools, continue with “Command line tools”.
+You have the choice to build the GUI JADE wallet as a Mac OSX app, described in “How to build the JADE-Qt App”. If, for whatever reason, you prefer to use the command line tools, continue with “Command line tools”.
 
-### How to build the Goods-Qt App:
+### How to build the JADE-Qt App:
 
 After make is finished, you can create an App bundle inside a disk image with:
 
 ```make deploy```
 
-Once this is done, you’ll find Goods-Qt.dmg inside your Goods folder. Open and install the wallet like any typical Mac app.
+Once this is done, you’ll find JADE-Qt.dmg inside your JADE folder. Open and install the wallet like any typical Mac app.
 
 ### Command line tools
 
@@ -207,8 +207,8 @@ Once the build is complete, switch into the src/qt subdirectory:
 
 And there you have your wallet – you can start it by running:
 
-```./goods-qt```
+```./jade-qt```
 
 You can move the wallet app to another more permanent location. If you have not moved it and want to start your wallet in the future, open Terminal and run this command:
 
-~/Downloads/Goods/src/qt/goods-qt
+~/Downloads/JADE/src/qt/jade-qt

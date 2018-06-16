@@ -346,7 +346,7 @@ void AddressTableModel::updateEntry(const QString& address,
     const QString& purpose,
     int status)
 {
-    // Update address book model from Goods core
+    // Update address book model from JADE core
     priv->updateEntry(address, label, isMine, purpose, status);
 }
 
