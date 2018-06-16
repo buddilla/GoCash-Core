@@ -154,9 +154,6 @@ public:
 
         hashGenesisBlock = genesis.GetHash();
 
-     // printf("genesis = %s\n",hashGenesisBlock.ToString().c_str());
-     // printf("Merkle Root = %s\n", genesis.hashMerkleRoot.ToString().c_str());
-
         assert(hashGenesisBlock == uint256("0x33ff12286d2315d9ef7f8b30a24147d497fe9e101d7abd7a21216dbbc077aee2"));
         assert(genesis.hashMerkleRoot == uint256("0x0992a3c9a76ee4bef9b4a5bda8b13e0b8086bf7aac40857513ac7a734a728573"));
 
@@ -253,10 +250,6 @@ public:
         genesis.nNonce = 12345;
 
         hashGenesisBlock = genesis.GetHash();
-        //printf("TN nNonce %u\n", genesis.nNonce);
-        //printf("TN hashGenesisBlock %s\n", hashGenesisBlock.ToString().c_str());
-        //printf("TN hashMerkleRoot %s\n", genesis.hashMerkleRoot.ToString().c_str());
-        //printf("TN nTime %u\n", genesis.nTime);
         assert(hashGenesisBlock == uint256("0x33ff12286d2315d9ef7f8b30a24147d497fe9e101d7abd7a21216dbbc077aee2"));
 
         vFixedSeeds.clear();
@@ -324,7 +317,6 @@ public:
         genesis.nNonce = 12345;
 
         hashGenesisBlock = genesis.GetHash();
-        //printf("genesis = %s\n",hashGenesisBlock.ToString().c_str());
         nDefaultPort = 18182;
         assert(hashGenesisBlock == uint256("0x33ff12286d2315d9ef7f8b30a24147d497fe9e101d7abd7a21216dbbc077aee2"));
 
