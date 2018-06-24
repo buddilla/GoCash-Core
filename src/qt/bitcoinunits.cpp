@@ -19,18 +19,18 @@ BitcoinUnits::BitcoinUnits(QObject* parent) : QAbstractListModel(parent),
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(JADE);
-    unitlist.append(mJADE);
-    unitlist.append(uJADE);
+    unitlist.append(gocash);
+    unitlist.append(mgocash);
+    unitlist.append(ugocash);
     return unitlist;
 }
 
 bool BitcoinUnits::valid(int unit)
 {
     switch (unit) {
-    case JADE:
-    case mJADE:
-    case uJADE:
+    case gocash:
+    case mgocash:
+    case ugocash:
         return true;
     default:
         return false;
@@ -40,12 +40,12 @@ bool BitcoinUnits::valid(int unit)
 QString BitcoinUnits::id(int unit)
 {
     switch (unit) {
-    case JADE:
-        return QString("jade");
-    case mJADE:
-        return QString("mjade");
-    case uJADE:
-        return QString::fromUtf8("ujade");
+    case gocash:
+        return QString("GCASH");
+    case mgocash:
+        return QString("mGCASH");
+    case ugocash:
+        return QString::fromUtf8("uGCASH");
     default:
         return QString("???");
     }
@@ -55,23 +55,23 @@ QString BitcoinUnits::name(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case JADE:
-            return QString("JADE");
-        case mJADE:
-            return QString("mJADE");
-        case uJADE:
-            return QString::fromUtf8("μJADE");
+        case gocash:
+            return QString("GCASH");
+        case mgocash:
+            return QString("mGCASH");
+        case ugocash:
+            return QString::fromUtf8("μGCASH");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
-        case JADE:
-            return QString("tJADE");
-        case mJADE:
-            return QString("mtJADE");
-        case uJADE:
-            return QString::fromUtf8("μtJADE");
+        case gocash:
+            return QString("tGCASH");
+        case mgocash:
+            return QString("mtGCASH");
+        case ugocash:
+            return QString::fromUtf8("μtGCASH");
         default:
             return QString("???");
         }
@@ -82,23 +82,23 @@ QString BitcoinUnits::description(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case JADE:
-            return QString("JADE");
-        case mJADE:
-            return QString("Milli-JADE (1 / 1" THIN_SP_UTF8 "000)");
-        case uJADE:
-            return QString("Micro-JADE (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+        case gocash:
+            return QString("GCASH");
+        case mgocash:
+            return QString("Milli-GCASH (1 / 1" THIN_SP_UTF8 "000)");
+        case ugocash:
+            return QString("Micro-GCASH (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
-        case JADE:
-            return QString("TestJADEs");
-        case mJADE:
-            return QString("Milli-TestJADE (1 / 1" THIN_SP_UTF8 "000)");
-        case uJADE:
-            return QString("Micro-TestJADE (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+        case gocash:
+            return QString("TestGCASH");
+        case mgocash:
+            return QString("Milli-TestGCASH (1 / 1" THIN_SP_UTF8 "000)");
+        case ugocash:
+            return QString("Micro-TestGCASH (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
         }
@@ -108,11 +108,11 @@ QString BitcoinUnits::description(int unit)
 qint64 BitcoinUnits::factor(int unit)
 {
     switch (unit) {
-    case JADE:
+    case gocash:
         return 100000000;
-    case mJADE:
+    case mgocash:
         return 100000;
-    case uJADE:
+    case ugocash:
         return 100;
     default:
         return 100000000;
@@ -122,11 +122,11 @@ qint64 BitcoinUnits::factor(int unit)
 int BitcoinUnits::decimals(int unit)
 {
     switch (unit) {
-    case JADE:
+    case gocash:
         return 8;
-    case mJADE:
+    case mgocash:
         return 5;
-    case uJADE:
+    case ugocash:
         return 2;
     default:
         return 0;

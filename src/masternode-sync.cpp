@@ -98,7 +98,7 @@ void CMasternodeSync::AddedMasternodeList(uint256 hash)
 
 void CMasternodeSync::AddedMasternodeWinner(uint256 hash)
 {
-    if (masternodePayments.mapMasternodePayeeVotes.count(hash)) {
+    if (masternodGOCashments.mapMasternodGOCasheeVotes.count(hash)) {
         if (mapSeenSyncMNW[hash] < MASTERNODE_SYNC_THRESHOLD) {
             lastMasternodeWinner = GetTime();
             mapSeenSyncMNW[hash]++;
@@ -294,7 +294,7 @@ void CMasternodeSync::Process()
             return;
         }
 
-        if (pnode->nVersion >= masternodePayments.GetMinMasternodePaymentsProto()) {
+        if (pnode->nVersion >= masternodGOCashments.GetMinMasternodGOCashmentsProto()) {
             if (RequestedMasternodeAssets == MASTERNODE_SYNC_LIST) {
                 LogPrint("masternode", "CMasternodeSync::Process() - lastMasternodeList %lld (GetTime() - MASTERNODE_SYNC_TIMEOUT) %lld\n", lastMasternodeList, GetTime() - MASTERNODE_SYNC_TIMEOUT);
                 if (lastMasternodeList > 0 && lastMasternodeList < GetTime() - MASTERNODE_SYNC_TIMEOUT * 2 && RequestedMasternodeAttempt >= MASTERNODE_SYNC_THRESHOLD) { //hasn't received a new item in the last five seconds, so we'll move to the

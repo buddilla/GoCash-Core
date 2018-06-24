@@ -285,9 +285,9 @@ void WalletView::gotoMultisigDialog(int index)
     multisig->showTab(index);
 }
 
-bool WalletView::handlePaymentRequest(const SendCoinsRecipient& recipient)
+bool WalletView::handlGOCashmentRequest(const SendCoinsRecipient& recipient)
 {
-    return sendCoinsPage->handlePaymentRequest(recipient);
+    return sendCoinsPage->handlGOCashmentRequest(recipient);
 }
 
 void WalletView::showOutOfSyncWarning(bool fShow)

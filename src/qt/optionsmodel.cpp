@@ -5,7 +5,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/jade-config.h"
+#include "config/gocash-config.h"
 #endif
 
 #include "optionsmodel.h"
@@ -61,7 +61,7 @@ void OptionsModel::Init()
 
     // Display
     if (!settings.contains("nDisplayUnit"))
-        settings.setValue("nDisplayUnit", BitcoinUnits::JADE);
+        settings.setValue("nDisplayUnit", BitcoinUnits::gocash);
     nDisplayUnit = settings.value("nDisplayUnit").toInt();
 
     if (!settings.contains("strThirdPartyTxUrls"))
@@ -79,10 +79,10 @@ void OptionsModel::Init()
         settings.setValue("nZeromintPercentage", 10);
     nZeromintPercentage = settings.value("nZeromintPercentage").toLongLong();
 
-    if (!settings.contains("nAnonymizeJADEAmount"))
-        settings.setValue("nAnonymizeJADEAmount", 1000);
+    if (!settings.contains("nAnonymizegocashAmount"))
+        settings.setValue("nAnonymizegocashAmount", 1000);
 
-    nAnonymizeJADEAmount = settings.value("nAnonymizeJADEAmount").toLongLong();
+    nAnonymizegocashAmount = settings.value("nAnonymizegocashAmount").toLongLong();
 
     if (!settings.contains("fShowMasternodesTab"))
         settings.setValue("fShowMasternodesTab", masternodeConfig.getCount());
@@ -151,8 +151,8 @@ void OptionsModel::Init()
         SoftSetArg("-zeromintpercentage", settings.value("nZeromintPercentage").toString().toStdString());
     if (settings.contains("nPreferredDenom"))
         SoftSetArg("-preferredDenom", settings.value("nPreferredDenom").toString().toStdString());
-    if (settings.contains("nAnonymizeJADEAmount"))
-        SoftSetArg("-anonymizejadeamount", settings.value("nAnonymizeJADEAmount").toString().toStdString());
+    if (settings.contains("nAnonymizegocashAmount"))
+        SoftSetArg("-anonymizegocashamount", settings.value("nAnonymizegocashAmount").toString().toStdString());
 
     language = settings.value("language").toString();
 }
@@ -163,7 +163,7 @@ void OptionsModel::Reset()
 
     // Remove all entries from our QSettings object
     settings.clear();
-    resetSettings = true; // Needed in jade.cpp during shotdown to also remove the window positions
+    resetSettings = true; // Needed in gocash.cpp during shotdown to also remove the window positions
 
     // default setting for OptionsModel::StartAtStartup - disabled
     if (GUIUtil::GetStartOnSystemStartup())
@@ -234,8 +234,8 @@ QVariant OptionsModel::data(const QModelIndex& index, int role) const
             return QVariant(nZeromintPercentage);
         case ZeromintPrefDenom:
             return QVariant(nPreferredDenom);
-        case AnonymizeJADEAmount:
-            return QVariant(nAnonymizeJADEAmount);
+        case AnonymizegocashAmount:
+            return QVariant(nAnonymizegocashAmount);
         case Listen:
             return settings.value("fListen");
         default:
@@ -350,10 +350,10 @@ bool OptionsModel::setData(const QModelIndex& index, const QVariant& value, int 
             emit preferredDenomChanged(nPreferredDenom);
             break;
 
-        case AnonymizeJADEAmount:
-            nAnonymizeJADEAmount = value.toInt();
-            settings.setValue("nAnonymizeJADEAmount", nAnonymizeJADEAmount);
-            emit anonymizeJADEAmountChanged(nAnonymizeJADEAmount);
+        case AnonymizegocashAmount:
+            nAnonymizegocashAmount = value.toInt();
+            settings.setValue("nAnonymizegocashAmount", nAnonymizegocashAmount);
+            emit anonymizegocashAmountChanged(nAnonymizegocashAmount);
             break;
         case CoinControlFeatures:
             fCoinControlFeatures = value.toBool();

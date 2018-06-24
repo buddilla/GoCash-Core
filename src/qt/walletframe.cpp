@@ -87,13 +87,13 @@ void WalletFrame::removeAllWallets()
     mapWalletViews.clear();
 }
 
-bool WalletFrame::handlePaymentRequest(const SendCoinsRecipient& recipient)
+bool WalletFrame::handlGOCashmentRequest(const SendCoinsRecipient& recipient)
 {
     WalletView* walletView = currentWalletView();
     if (!walletView)
         return false;
 
-    return walletView->handlePaymentRequest(recipient);
+    return walletView->handlGOCashmentRequest(recipient);
 }
 
 void WalletFrame::showOutOfSyncWarning(bool fShow)

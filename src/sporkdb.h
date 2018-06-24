@@ -2,8 +2,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef JADE_CSPORKDB_H
-#define JADE_CSPORKDB_H
+#ifndef gocash_CSPORKDB_H
+#define gocash_CSPORKDB_H
 
 #include <boost/filesystem/path.hpp>
 #include "leveldbwrapper.h"
@@ -25,4 +25,4 @@ public:
 };
 
 
-#endif //JADE_CSPORKDB_H
+#endif //gocash_CSPORKDB_H

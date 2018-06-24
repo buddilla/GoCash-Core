@@ -1,5 +1,5 @@
 ---
-name: "jade-dmg-signer"
+name: "gocash-dmg-signer"
 suites:
 - "trusty"
 architectures:
@@ -7,10 +7,10 @@ architectures:
 packages:
 - "faketime"
 remotes:
-- "url": "https://github.com/jadeproject/jade-detached-sigs.git"
+- "url": "https://github.com/gocashproject/gocash-detached-sigs.git"
   "dir": "signature"
 files:
-- "jade-osx-unsigned.tar.gz"
+- "gocash-osx-unsigned.tar.gz"
 script: |
   WRAP_DIR=$HOME/wrapped
   mkdir -p ${WRAP_DIR}
@@ -27,11 +27,11 @@ script: |
     chmod +x ${WRAP_DIR}/${prog}
   done
 
-  UNSIGNED=jade-osx-unsigned.tar.gz
-  SIGNED=jade-osx-signed.dmg
+  UNSIGNED=gocash-osx-unsigned.tar.gz
+  SIGNED=gocash-osx-signed.dmg
 
   tar -xf ${UNSIGNED}
   OSX_VOLNAME="$(cat osx_volname)"
   ./detached-sig-apply.sh ${UNSIGNED} signature/osx
-  ${WRAP_DIR}/genisoimage -no-cache-inodes -D -l -probe -V "JADE-Qt" -no-pad -r -dir-mode 0755 -apple -o uncompressed.dmg signed-app
+  ${WRAP_DIR}/genisoimage -no-cache-inodes -D -l -probe -V "gocash-Qt" -no-pad -r -dir-mode 0755 -apple -o uncompressed.dmg signed-app
   ${WRAP_DIR}/dmg dmg uncompressed.dmg ${OUTDIR}/${SIGNED}

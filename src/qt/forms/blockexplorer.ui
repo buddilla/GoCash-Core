@@ -168,7 +168,7 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="../jade.qrc"/>
+  <include location="../gocash.qrc"/>
  </resources>
  <connections/>
 </ui>

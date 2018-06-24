@@ -1,34 +1,34 @@
-bin_PROGRAMS += qt/jade-qt
+bin_PROGRAMS += qt/gocash-qt
 EXTRA_LIBRARIES += qt/libbitcoinqt.a
 
-# jade qt core #
+# gocash qt core #
 QT_TS = \
-  qt/locale/jade_bg.ts \
-  qt/locale/jade_ca.ts \
-  qt/locale/jade_cs.ts \
-  qt/locale/jade_da.ts \
-  qt/locale/jade_de.ts \
-  qt/locale/jade_en.ts \
-  qt/locale/jade_en_US.ts \
-  qt/locale/jade_es.ts \
-  qt/locale/jade_fi.ts \
-  qt/locale/jade_fr_FR.ts \
-  qt/locale/jade_hr.ts \
-  qt/locale/jade_it.ts \
-  qt/locale/jade_ja.ts \
-  qt/locale/jade_ko_KR.ts \
-  qt/locale/jade_nl.ts \
-  qt/locale/jade_pl.ts \
-  qt/locale/jade_pt.ts \
-  qt/locale/jade_pt_BR.ts \
-  qt/locale/jade_ro_RO.ts \
-  qt/locale/jade_ru.ts \
-  qt/locale/jade_sk.ts \
-  qt/locale/jade_sv.ts \
-  qt/locale/jade_tr.ts \
-  qt/locale/jade_uk.ts \
-  qt/locale/jade_zh_CN.ts \
-  qt/locale/jade_zh_TW.ts
+  qt/locale/gocash_bg.ts \
+  qt/locale/gocash_ca.ts \
+  qt/locale/gocash_cs.ts \
+  qt/locale/gocash_da.ts \
+  qt/locale/gocash_de.ts \
+  qt/locale/gocash_en.ts \
+  qt/locale/gocash_en_US.ts \
+  qt/locale/gocash_es.ts \
+  qt/locale/gocash_fi.ts \
+  qt/locale/gocash_fr_FR.ts \
+  qt/locale/gocash_hr.ts \
+  qt/locale/gocash_it.ts \
+  qt/locale/gocash_ja.ts \
+  qt/locale/gocash_ko_KR.ts \
+  qt/locale/gocash_nl.ts \
+  qt/locale/gocash_pl.ts \
+  qt/locale/gocash_pt.ts \
+  qt/locale/gocash_pt_BR.ts \
+  qt/locale/gocash_ro_RO.ts \
+  qt/locale/gocash_ru.ts \
+  qt/locale/gocash_sk.ts \
+  qt/locale/gocash_sv.ts \
+  qt/locale/gocash_tr.ts \
+  qt/locale/gocash_uk.ts \
+  qt/locale/gocash_zh_CN.ts \
+  qt/locale/gocash_zh_TW.ts
 
 QT_FORMS_UI = \
   qt/forms/addressbookpage.ui \
@@ -54,7 +54,7 @@ QT_FORMS_UI = \
   qt/forms/sendcoinsentry.ui \
   qt/forms/signverifymessagedialog.ui \
   qt/forms/transactiondescdialog.ui \
-  qt/forms/zjadecontroldialog.ui
+  qt/forms/zgocashcontroldialog.ui
 
 QT_MOC_CPP = \
   qt/moc_addressbookpage.cpp \
@@ -107,23 +107,23 @@ QT_MOC_CPP = \
   qt/moc_walletframe.cpp \
   qt/moc_walletmodel.cpp \
   qt/moc_walletview.cpp \
-  qt/moc_zjadecontroldialog.cpp
+  qt/moc_zgocashcontroldialog.cpp
 
 BITCOIN_MM = \
   qt/macdockiconhandler.mm \
   qt/macnotificationhandler.mm
 
 QT_MOC = \
-  qt/jade.moc \
+  qt/gocash.moc \
   qt/bitcoinamountfield.moc \
   qt/intro.moc \
   qt/overviewpage.moc \
   qt/rpcconsole.moc
 
-QT_QRC_CPP = qt/qrc_jade.cpp
-QT_QRC = qt/jade.qrc
-QT_QRC_LOCALE_CPP = qt/qrc_jade_locale.cpp
-QT_QRC_LOCALE = qt/jade_locale.qrc
+QT_QRC_CPP = qt/qrc_gocash.cpp
+QT_QRC = qt/gocash.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_gocash_locale.cpp
+QT_QRC_LOCALE = qt/gocash_locale.qrc
 
 PROTOBUF_CC = qt/paymentrequest.pb.cc
 PROTOBUF_H = qt/paymentrequest.pb.h
@@ -187,7 +187,7 @@ BITCOIN_QT_H = \
   qt/walletmodeltransaction.h \
   qt/walletview.h \
   qt/winshutdownmonitor.h \
-  qt/zjadecontroldialog.h
+  qt/zgocashcontroldialog.h
 
 RES_ICONS = \
   qt/res/icons/add.png \
@@ -241,12 +241,13 @@ RES_ICONS = \
   qt/res/icons/tx_input.png \
   qt/res/icons/tx_output.png \
   qt/res/icons/tx_mined.png \
-  qt/res/icons/unit_jade.png \
-  qt/res/icons/unit_mjade.png \
-  qt/res/icons/unit_ujade.png \
-  qt/res/icons/unit_tjade.png \
-  qt/res/icons/unit_tmjade.png \
-  qt/res/icons/unit_tujade.png
+  qt/res/icons/tx_mn.png \
+  qt/res/icons/unit_gocash.png \
+  qt/res/icons/unit_mgocash.png \
+  qt/res/icons/unit_ugocash.png \
+  qt/res/icons/unit_tgocash.png \
+  qt/res/icons/unit_tmgocash.png \
+  qt/res/icons/unit_tugocash.png
 
 BITCOIN_QT_CPP = \
   qt/bitcoinaddressvalidator.cpp \
@@ -308,7 +309,7 @@ BITCOIN_QT_CPP += \
   qt/walletmodel.cpp \
   qt/walletmodeltransaction.cpp \
   qt/walletview.cpp \
-  qt/zjadecontroldialog.cpp
+  qt/zgocashcontroldialog.cpp
 
 endif
 
@@ -316,7 +317,7 @@ RES_IMAGES = \
   qt/res/images/about.png \
   qt/res/images/splash.png \
   qt/res/images/splash_testnet.png \
-  qt/res/images/jade_logo_horizontal.png \
+  qt/res/images/gocash_logo_horizontal.png \
   qt/res/images/downArrow.png \
   qt/res/images/downArrow_small.png \
   qt/res/images/upArrow_small.png \
@@ -332,7 +333,7 @@ RES_CSS = \
 
 RES_MOVIES = $(wildcard $(srcdir)/qt/res/movies/spinner-*.png)
 
-BITCOIN_RC = qt/res/jade-qt-res.rc
+BITCOIN_RC = qt/res/gocash-qt-res.rc
 
 BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
   -I$(builddir)/qt/forms
@@ -352,69 +353,69 @@ QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:
 # Most files will depend on the forms and moc files as includes. Generate them
 # before anything else.
 $(QT_MOC): $(QT_FORMS_H)
-$(qt_libbitcoinqt_a_OBJECTS) $(qt_jade_qt_OBJECTS) : | $(QT_MOC)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_gocash_qt_OBJECTS) : | $(QT_MOC)
 
 #Generating these with a half-written protobuf header leads to wacky results.
 #This makes sure it's done.
 $(QT_MOC): $(PROTOBUF_H)
 $(QT_MOC_CPP): $(PROTOBUF_H)
 
-# jade-qt binary #
-qt_jade_qt_CPPFLAGS = $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+# gocash-qt binary #
+qt_gocash_qt_CPPFLAGS = $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
 
-qt_jade_qt_SOURCES = qt/jade.cpp
+qt_gocash_qt_SOURCES = qt/gocash.cpp
 if TARGET_DARWIN
-  qt_jade_qt_SOURCES += $(BITCOIN_MM)
+  qt_gocash_qt_SOURCES += $(BITCOIN_MM)
 endif
 if TARGET_WINDOWS
-  qt_jade_qt_SOURCES += $(BITCOIN_RC)
+  qt_gocash_qt_SOURCES += $(BITCOIN_RC)
 endif
-qt_jade_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+qt_gocash_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
 if ENABLE_WALLET
-qt_jade_qt_LDADD += $(LIBBITCOIN_WALLET)
+qt_gocash_qt_LDADD += $(LIBBITCOIN_WALLET)
 endif
 if ENABLE_ZMQ
-qt_jade_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+qt_gocash_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
-qt_jade_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBBITCOIN_UNIVALUE) $(LIBBITCOIN_ZEROCOIN) $(LIBLEVELDB) $(LIBMEMENV) \
+qt_gocash_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBBITCOIN_UNIVALUE) $(LIBBITCOIN_ZEROCOIN) $(LIBLEVELDB) $(LIBMEMENV) \
   $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
-qt_jade_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-qt_jade_qt_LIBTOOLFLAGS = --tag CXX
+qt_gocash_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_gocash_qt_LIBTOOLFLAGS = --tag CXX
 
 #locale/foo.ts -> locale/foo.qm
 QT_QM=$(QT_TS:.ts=.qm)
 
 .SECONDARY: $(QT_QM)
 
-qt/jadestrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES)
+qt/gocashstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES)
 	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
 	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) $(PYTHON) ../share/qt/extract_strings_qt.py $^
 
-translate: qt/jadestrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+translate: qt/gocashstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
 	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts qt/locale/jade_en.ts
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts qt/locale/gocash_en.ts
 
 $(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
 	@test -f $(RCC)
 	@test -f $(@D)/$(<F) || cp -f $< $(@D)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name jade_locale $(@D)/$(<F) | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name gocash_locale $(@D)/$(<F) | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
 $(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(RES_MOVIES) $(PROTOBUF_H)
 	@test -f $(RCC)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name jade $< | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name gocash $< | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
 CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno
 
 CLEANFILES += $(CLEAN_QT)
 
-jade_qt_clean: FORCE
-	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_jade_qt_OBJECTS) qt/jade-qt$(EXEEXT) $(LIBBITCOINQT)
+gocash_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_gocash_qt_OBJECTS) qt/gocash-qt$(EXEEXT) $(LIBBITCOINQT)
 
-jade_qt : qt/jade-qt$(EXEEXT)
+gocash_qt : qt/gocash-qt$(EXEEXT)
 
 ui_%.h: %.ui
 	@test -f $(UIC)

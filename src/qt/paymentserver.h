@@ -6,7 +6,7 @@
 #define BITCOIN_QT_PAYMENTSERVER_H
 
 // This class handles payment requests from clicking on
-// jade: URIs
+// gocash: URIs
 //
 // This is somewhat tricky, because we have to deal with
 // the situation where the user clicks on a link during
@@ -116,7 +116,7 @@ private slots:
     void handleURIConnection();
     void netRequestFinished(QNetworkReply*);
     void reportSslErrors(QNetworkReply*, const QList<QSslError>&);
-    void handlePaymentACK(const QString& paymentACKMsg);
+    void handlGOCashmentACK(const QString& paymentACKMsg);
 
 protected:
     // Constructor registers this on the parent QApplication to

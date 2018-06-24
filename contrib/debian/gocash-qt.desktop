@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=gocash
+Comment=gocash P2P Cryptocurrency
+Comment[fr]=gocash, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=gocash, eşten eşe kriptografik sanal para birimi
+Exec=gocash-qt %u
+Terminal=false
+Type=Application
+Icon=gocash128
+MimeType=x-scheme-handler/gocash;
+Categories=Office;Finance;

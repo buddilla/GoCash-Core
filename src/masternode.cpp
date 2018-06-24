@@ -229,7 +229,7 @@ void CMasternode::Check(bool forceCheck)
     activeState = MASTERNODE_ENABLED; // OK
 }
 
-int64_t CMasternode::SecondsSincePayment()
+int64_t CMasternode::SecondsSincGOCashment()
 {
     CScript pubkeyScript;
     pubkeyScript = GetScriptForDestination(pubKeyCollateralAddress.GetID());
@@ -275,12 +275,12 @@ int64_t CMasternode::GetLastPaid()
         }
         n++;
 
-        if (masternodePayments.mapMasternodeBlocks.count(BlockReading->nHeight)) {
+        if (masternodGOCashments.mapMasternodeBlocks.count(BlockReading->nHeight)) {
             /*
                 Search for this payee, with at least 2 votes. This will aid in consensus allowing the network 
                 to converge on the same payees quickly, then keep the same schedule.
             */
-            if (masternodePayments.mapMasternodeBlocks[BlockReading->nHeight].HasPayeeWithVotes(mnpayee, 2)) {
+            if (masternodGOCashments.mapMasternodeBlocks[BlockReading->nHeight].HasPayeeWithVotes(mnpayee, 2)) {
                 return BlockReading->nTime + nOffset;
             }
         }
@@ -479,7 +479,7 @@ bool CMasternodeBroadcast::CheckAndUpdate(int& nDos)
     std::string vchPubKey2(pubKeyMasternode.begin(), pubKeyMasternode.end());
     std::string strMessage = addr.ToString() + boost::lexical_cast<std::string>(sigTime) + vchPubKey + vchPubKey2 + boost::lexical_cast<std::string>(protocolVersion);
 
-    if (protocolVersion < masternodePayments.GetMinMasternodePaymentsProto()) {
+    if (protocolVersion < masternodGOCashments.GetMinMasternodGOCashmentsProto()) {
         LogPrint("masternode","mnb - ignoring outdated Masternode %s protocol version %d\n", vin.prevout.hash.ToString(), protocolVersion);
         return false;
     }
@@ -515,8 +515,8 @@ bool CMasternodeBroadcast::CheckAndUpdate(int& nDos)
     }
 
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
-        if (addr.GetPort() != 9111) return false;
-    } else if (addr.GetPort() == 9111)
+        if (addr.GetPort() != 9911) return false;
+    } else if (addr.GetPort() == 9911)
         return false;
 
     //search existing Masternode list, this is where we update existing Masternodes with new mnb broadcasts
@@ -602,13 +602,13 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
     }
 
     // verify that sig time is legit in past
-    // should be at least not earlier than block when 10000 JADE tx got MASTERNODE_MIN_CONFIRMATIONS
+    // should be at least not earlier than block when 10000 gocash tx got MASTERNODE_MIN_CONFIRMATIONS
     uint256 hashBlock = 0;
     CTransaction tx2;
     GetTransaction(vin.prevout.hash, tx2, hashBlock, true);
     BlockMap::iterator mi = mapBlockIndex.find(hashBlock);
     if (mi != mapBlockIndex.end() && (*mi).second) {
-        CBlockIndex* pMNIndex = (*mi).second;                                                        // block for 10000 JADE tx -> 1 confirmation
+        CBlockIndex* pMNIndex = (*mi).second;                                                        // block for 10000 gocash tx -> 1 confirmation
         CBlockIndex* pConfIndex = chainActive[pMNIndex->nHeight + MASTERNODE_MIN_CONFIRMATIONS - 1]; // block where tx got MASTERNODE_MIN_CONFIRMATIONS
         if (pConfIndex->GetBlockTime() > sigTime) {
             LogPrint("masternode","mnb - Bad sigTime %d for Masternode %s (%i conf block is at %d)\n",
@@ -720,7 +720,7 @@ bool CMasternodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled)
 
     // see if we have this Masternode
     CMasternode* pmn = mnodeman.Find(vin);
-    if (pmn != NULL && pmn->protocolVersion >= masternodePayments.GetMinMasternodePaymentsProto()) {
+    if (pmn != NULL && pmn->protocolVersion >= masternodGOCashments.GetMinMasternodGOCashmentsProto()) {
         if (fRequireEnabled && !pmn->IsEnabled()) return false;
 
         // LogPrint("masternode","mnping - Found corresponding mn for vin: %s\n", vin.ToString());

@@ -52,7 +52,7 @@ public:
     */
     void setWalletModel(WalletModel* walletModel);
 
-    bool handlePaymentRequest(const SendCoinsRecipient& recipient);
+    bool handlGOCashmentRequest(const SendCoinsRecipient& recipient);
 
     void showOutOfSyncWarning(bool fShow);
 
@@ -129,7 +129,7 @@ public slots:
     /** Show progress dialog e.g. for rescan */
     void showProgress(const QString& title, int nProgress);
 
-    /** Update selected JADE amount from transactionview */
+    /** Update selected gocash amount from transactionview */
     void trxAmount(QString amount);
 
 signals:

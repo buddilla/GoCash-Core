@@ -8,8 +8,8 @@
 # Does the following:
 #   a) creates 3 nodes, with an empty chain (no blocks).
 #   b) node0 mines a block
-#   c) node1 mines 32 blocks, so now node 0 has 60001jade, node 1 has 4250jade, node2 has none.
-#   d) node0 sends 601 jade to node2, in two transactions (301 jade, then 300 jade).
+#   c) node1 mines 32 blocks, so now node 0 has 60001gocash, node 1 has 4250gocash, node2 has none.
+#   d) node0 sends 601 gocash to node2, in two transactions (301 gocash, then 300 gocash).
 #   e) node0 mines a block, collects the fee on the second transaction
 #   f) node1 mines 16 blocks, to mature node0's just-mined block
 #   g) check that node0 has 100-21, node2 has 21

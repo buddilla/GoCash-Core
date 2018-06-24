@@ -1,4 +1,4 @@
-Building JADE
+Building gocash
 
 Use the autogen script to prepare the build environment.
 
@@ -8,6 +8,6 @@ Use the autogen script to prepare the build environment.
 
 Always verify the signatures and checksums.
 
-See doc/build-*.md for instructions on building jaded,
+See doc/build-*.md for instructions on building gocashd,
 the intended-for-services, no-graphical-interface, reference
-implementation of JADE.
+implementation of gocash.

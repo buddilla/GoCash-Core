@@ -2,7 +2,7 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2018 The JADE developers
+// Copyright (c) 2018 The gocash developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -102,12 +102,12 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 4-byte int at any alignment.
          */
-        pchMessageStart[0] = 0x15;
-        pchMessageStart[1] = 0xf3;
-        pchMessageStart[2] = 0xc5;
-        pchMessageStart[3] = 0x57;
-        vAlertPubKey = ParseHex("04e3ba5bdf2f09dee40b20f47990d704c7a16a513454e5e504a843a4642edad009ddec7b2943e541f988243ccd660d9b0036155992da298185c0deeeaaeabf228d");
-        nDefaultPort = 9111;
+        pchMessageStart[0] = 0xa4;
+        pchMessageStart[1] = 0x8c;
+        pchMessageStart[2] = 0x29;
+        pchMessageStart[3] = 0x53;
+        vAlertPubKey = ParseHex("0403DFA2DB75FB42643EE026F6B28E0FA74ED031CB3AFE446AD66369BCBF3C08067A8252F7A62E75C851180AACFD44DC1B466AD809DED972952ED0FF5A17EDD1F6");
+        nDefaultPort = 9911;
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         nSubsidyHalvingInterval = 210000;
         nMaxReorganizationDepth = 100;
@@ -115,14 +115,14 @@ public:
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 60; // JADE: 1 day
-        nTargetSpacing = 1 * 60;  // JADE: 60 seconds
-        nMaturity = 60;
+        nTargetTimespan = 1 * 60; // gocash: 1 day
+        nTargetSpacing = 1 * 60;  // gocash: 60 seconds
+        nMaturity = 30;
         nMasternodeCountDrift = 20;
-        nMaxMoneyOut = 30000000 * COIN;
+        nMaxMoneyOut = 20000000 * COIN;
 
         /** Height or Time Based Activations **/
-        nLastPOWBlock = 200;
+        nLastPOWBlock = 400;
         nModifierUpdateBlock = 999999999;
         nZerocoinStartHeight = 90000;
         nBlockEnforceSerialRange = 90003; //Enforce serial range starting this block
@@ -138,7 +138,7 @@ public:
          *     CTxOut(nValue=50.00000000, scriptPubKey=0xA9037BAC7050C479B121CF)
          *   vMerkleTree: e0028e
          */
-        const char* pszTimestamp = "Jade Core v2 Jande Mude Jande Kaye";
+        const char* pszTimestamp = "GOCASH COIN, Go FOR CASH";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -153,24 +153,19 @@ public:
         genesis.nNonce = 12345;
 
         hashGenesisBlock = genesis.GetHash();
+        //printf("genesis = %s\n",hashGenesisBlock.ToString().c_str());
+        //printf("Merkle Root = %s\n", genesis.hashMerkleRoot.ToString().c_str());
 
-        assert(hashGenesisBlock == uint256("0x33ff12286d2315d9ef7f8b30a24147d497fe9e101d7abd7a21216dbbc077aee2"));
-        assert(genesis.hashMerkleRoot == uint256("0x0992a3c9a76ee4bef9b4a5bda8b13e0b8086bf7aac40857513ac7a734a728573"));
+        assert(hashGenesisBlock == uint256("0xfc5dba28d7a5da1db11be7031b25470d7a10124ba8aab78da7eb5ccc2a33ff17"));
+        assert(genesis.hashMerkleRoot == uint256("0x429f906734b063fd29980b3df39061aabe16e534f1d3818cc08da096b5563ddf"));
 
-        vSeeds.push_back(CDNSSeedData("0", "168.235.83.224:9111"));
-        vSeeds.push_back(CDNSSeedData("1", "185.201.9.158:9111"));
-        vSeeds.push_back(CDNSSeedData("2", "183.81.155.6:9111"));
-        vSeeds.push_back(CDNSSeedData("3", "115.178.201.135:9111"));
-        vSeeds.push_back(CDNSSeedData("4", "45.63.75.206:9111"));
-        vSeeds.push_back(CDNSSeedData("5", "45.76.21.22:9111"));
-        vSeeds.push_back(CDNSSeedData("6", "144.202.59.24:9111"));
-        vSeeds.push_back(CDNSSeedData("7", "144.202.56.79:9111"));
-        vSeeds.push_back(CDNSSeedData("8", "115.178.199.178:9111"));
+        //vSeeds.push_back(CDNSSeedData("0", "168.235.83.224:9911"));
+        //vSeeds.push_back(CDNSSeedData("1", "185.201.9.158:9911"));
 
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 43);
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 106);
-        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 173);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 38);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 102);
+        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 153);
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x02)(0x2D)(0x25)(0x33).convert_to_container<std::vector<unsigned char> >();
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x02)(0x21)(0x31)(0x2B).convert_to_container<std::vector<unsigned char> >();
         // 	BIP44 coin type is from https://github.com/satoshilabs/slips/blob/master/slip-0044.md
@@ -191,7 +186,7 @@ public:
         nPoolMaxTransactions = 3;
         strSporkKey = "04e3ba5bdf2f09dee40b20f47990d704c7a16a513454e5e504a843a4642edad009ddec7b2943e541f988243ccd660d9b0036155992da298185c0deeeaaeabf228d";
         strObfuscationPoolDummyAddress = "PCYiHgGJJ6xGHqivmdZrYjRnhaYf6AJ2Mp";
-        nStartMasternodePayments = 1403728576; //Wed, 25 Jun 2014 20:36:16 GMT
+        nStartMasternodGOCashments = 1403728576; //Wed, 25 Jun 2014 20:36:16 GMT
 
         /** Zerocoin */
         zerocoinModulus = "25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784"
@@ -236,8 +231,8 @@ public:
         nRejectBlockOutdatedMajority = 75;
         nToCheckBlockUpgradeMajority = 100;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 60; // JADE: 1 day
-        nTargetSpacing = 1 * 10;  // JADE: 1 minute
+        nTargetTimespan = 1 * 60; // gocash: 1 day
+        nTargetSpacing = 1 * 10;  // gocash: 1 minute
         nLastPOWBlock = 200;
         nMaturity = 15;
         nMasternodeCountDrift = 4;
@@ -250,19 +245,21 @@ public:
         genesis.nNonce = 12345;
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x33ff12286d2315d9ef7f8b30a24147d497fe9e101d7abd7a21216dbbc077aee2"));
+        //printf("genesis = %s\n",hashGenesisBlock.ToString().c_str());
+        //printf("Merkle Root = %s\n", genesis.hashMerkleRoot.ToString().c_str());
+        assert(hashGenesisBlock == uint256("0xfc5dba28d7a5da1db11be7031b25470d7a10124ba8aab78da7eb5ccc2a33ff17"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 139); // Testnet jade addresses start with 'x' or 'y'
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 19);  // Testnet jade script addresses start with '8' or '9'
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 139); // Testnet gocash addresses start with 'x' or 'y'
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 19);  // Testnet gocash script addresses start with '8' or '9'
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 239);     // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
-        // Testnet jade BIP32 pubkeys start with 'DRKV'
+        // Testnet gocash BIP32 pubkeys start with 'DRKV'
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x3a)(0x80)(0x61)(0xa0).convert_to_container<std::vector<unsigned char> >();
-        // Testnet jade BIP32 prvkeys start with 'DRKP'
+        // Testnet gocash BIP32 prvkeys start with 'DRKP'
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x3a)(0x80)(0x58)(0x37).convert_to_container<std::vector<unsigned char> >();
-        // Testnet jade BIP44 coin type is '1' (All coin's testnet default)
+        // Testnet gocash BIP44 coin type is '1' (All coin's testnet default)
         base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x01)(0x00)(0x00)(0x80).convert_to_container<std::vector<unsigned char> >();
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
@@ -278,7 +275,7 @@ public:
         nPoolMaxTransactions = 2;
         strSporkKey = "04e3ba5bdf2f09dee40b20f47990d704c7a16a513454e5e504a843a4642edad009ddec7b2943e541f988243ccd660d9b0036155992da298185c0deeeaaeabf228d";
         strObfuscationPoolDummyAddress = "PCYiHgGJJ6xGHqivmdZrYjRnhaYf6AJ2Mp";
-        nStartMasternodePayments = 1505224800; //Fri, 09 Jan 2015 21:05:58 GMT
+        nStartMasternodGOCashments = 1505224800; //Fri, 09 Jan 2015 21:05:58 GMT
         nBudget_Fee_Confirmations = 3; // Number of confirmations for the finalization fee. We have to make this very short
                                        // here because we only have a 8 block finalization window on testnet
     }
@@ -309,8 +306,8 @@ public:
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 1;
-        nTargetTimespan = 24 * 60 * 60; // JADE: 1 day
-        nTargetSpacing = 1 * 60;        // JADE: 1 minutes
+        nTargetTimespan = 24 * 60 * 60; // gocash: 1 day
+        nTargetSpacing = 1 * 60;        // gocash: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         genesis.nTime = 1528115517;
         genesis.nBits = 0x207fffff;
@@ -318,7 +315,7 @@ public:
 
         hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 18182;
-        assert(hashGenesisBlock == uint256("0x33ff12286d2315d9ef7f8b30a24147d497fe9e101d7abd7a21216dbbc077aee2"));
+        assert(hashGenesisBlock == uint256("0xfc5dba28d7a5da1db11be7031b25470d7a10124ba8aab78da7eb5ccc2a33ff17"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Testnet mode doesn't have any DNS seeds.

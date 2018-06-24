@@ -2,7 +2,7 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2018 The JADE developers
+// Copyright (c) 2018 The gocash developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -238,10 +238,10 @@ Value stop(const Array& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "stop\n"
-            "\nStop JADE server.");
+            "\nStop gocash server.");
     // Shutdown will take long enough that the response should get back
     StartShutdown();
-    return "JADE server stopping";
+    return "gocash server stopping";
 }
 
 
@@ -319,36 +319,36 @@ static const CRPCCommand vRPCCommands[] =
         {"hidden", "reconsiderblock", &reconsiderblock, true, true, false},
         {"hidden", "setmocktime", &setmocktime, true, false, false},
 
-        /* JADE features */
-        {"jade", "masternode", &masternode, true, true, false},
-        {"jade", "listmasternodes", &listmasternodes, true, true, false},
-        {"jade", "getmasternodecount", &getmasternodecount, true, true, false},
-        {"jade", "masternodeconnect", &masternodeconnect, true, true, false},
-        {"jade", "masternodecurrent", &masternodecurrent, true, true, false},
-        {"jade", "masternodedebug", &masternodedebug, true, true, false},
-        {"jade", "startmasternode", &startmasternode, true, true, false},
-        {"jade", "createmasternodekey", &createmasternodekey, true, true, false},
-        {"jade", "getmasternodeoutputs", &getmasternodeoutputs, true, true, false},
-        {"jade", "listmasternodeconf", &listmasternodeconf, true, true, false},
-        {"jade", "getmasternodestatus", &getmasternodestatus, true, true, false},
-        {"jade", "getmasternodewinners", &getmasternodewinners, true, true, false},
-        {"jade", "getmasternodescores", &getmasternodescores, true, true, false},
-        {"jade", "mnbudget", &mnbudget, true, true, false},
-        {"jade", "preparebudget", &preparebudget, true, true, false},
-        {"jade", "submitbudget", &submitbudget, true, true, false},
-        {"jade", "mnbudgetvote", &mnbudgetvote, true, true, false},
-        {"jade", "getbudgetvotes", &getbudgetvotes, true, true, false},
-        {"jade", "getnextsuperblock", &getnextsuperblock, true, true, false},
-        {"jade", "getbudgetprojection", &getbudgetprojection, true, true, false},
-        {"jade", "getbudgetinfo", &getbudgetinfo, true, true, false},
-        {"jade", "mnbudgetrawvote", &mnbudgetrawvote, true, true, false},
-        {"jade", "mnfinalbudget", &mnfinalbudget, true, true, false},
-        {"jade", "checkbudgets", &checkbudgets, true, true, false},
-        {"jade", "mnsync", &mnsync, true, true, false},
-        {"jade", "spork", &spork, true, true, false},
-        {"jade", "getpoolinfo", &getpoolinfo, true, true, false},
+        /* gocash features */
+        {"gocash", "masternode", &masternode, true, true, false},
+        {"gocash", "listmasternodes", &listmasternodes, true, true, false},
+        {"gocash", "getmasternodecount", &getmasternodecount, true, true, false},
+        {"gocash", "masternodeconnect", &masternodeconnect, true, true, false},
+        {"gocash", "masternodecurrent", &masternodecurrent, true, true, false},
+        {"gocash", "masternodedebug", &masternodedebug, true, true, false},
+        {"gocash", "startmasternode", &startmasternode, true, true, false},
+        {"gocash", "createmasternodekey", &createmasternodekey, true, true, false},
+        {"gocash", "getmasternodeoutputs", &getmasternodeoutputs, true, true, false},
+        {"gocash", "listmasternodeconf", &listmasternodeconf, true, true, false},
+        {"gocash", "getmasternodestatus", &getmasternodestatus, true, true, false},
+        {"gocash", "getmasternodewinners", &getmasternodewinners, true, true, false},
+        {"gocash", "getmasternodescores", &getmasternodescores, true, true, false},
+        {"gocash", "mnbudget", &mnbudget, true, true, false},
+        {"gocash", "preparebudget", &preparebudget, true, true, false},
+        {"gocash", "submitbudget", &submitbudget, true, true, false},
+        {"gocash", "mnbudgetvote", &mnbudgetvote, true, true, false},
+        {"gocash", "getbudgetvotes", &getbudgetvotes, true, true, false},
+        {"gocash", "getnextsuperblock", &getnextsuperblock, true, true, false},
+        {"gocash", "getbudgetprojection", &getbudgetprojection, true, true, false},
+        {"gocash", "getbudgetinfo", &getbudgetinfo, true, true, false},
+        {"gocash", "mnbudgetrawvote", &mnbudgetrawvote, true, true, false},
+        {"gocash", "mnfinalbudget", &mnfinalbudget, true, true, false},
+        {"gocash", "checkbudgets", &checkbudgets, true, true, false},
+        {"gocash", "mnsync", &mnsync, true, true, false},
+        {"gocash", "spork", &spork, true, true, false},
+        {"gocash", "getpoolinfo", &getpoolinfo, true, true, false},
 #ifdef ENABLE_WALLET
-        {"jade", "obfuscation", &obfuscation, false, false, true}, /* not threadSafe because of SendMoney */
+        {"gocash", "obfuscation", &obfuscation, false, false, true}, /* not threadSafe because of SendMoney */
 
         /* Wallet */
         {"wallet", "addmultisigaddress", &addmultisigaddress, true, false, true},
@@ -628,16 +628,16 @@ void StartRPCThreads()
         unsigned char rand_pwd[32];
         GetRandBytes(rand_pwd, 32);
         uiInterface.ThreadSafeMessageBox(strprintf(
-                                             _("To use jaded, or the -server option to jade-qt, you must set an rpcpassword in the configuration file:\n"
+                                             _("To use gocashd, or the -server option to gocash-qt, you must set an rpcpassword in the configuration file:\n"
                                                "%s\n"
                                                "It is recommended you use the following random password:\n"
-                                               "rpcuser=jaderpc\n"
+                                               "rpcuser=gocashrpc\n"
                                                "rpcpassword=%s\n"
                                                "(you do not need to remember this password)\n"
                                                "The username and password MUST NOT be the same.\n"
                                                "If the file does not exist, create it with owner-readable-only file permissions.\n"
                                                "It is also recommended to set alertnotify so you are notified of problems;\n"
-                                               "for example: alertnotify=echo %%s | mail -s \"JADE Alert\" admin@foo.com\n"),
+                                               "for example: alertnotify=echo %%s | mail -s \"gocash Alert\" admin@foo.com\n"),
                                              GetConfigFile().string(),
                                              EncodeBase58(&rand_pwd[0], &rand_pwd[0] + 32)),
             "", CClientUIInterface::MSG_ERROR | CClientUIInterface::SECURE);
@@ -1088,14 +1088,14 @@ std::vector<std::string> CRPCTable::listCommands() const
 
 std::string HelpExampleCli(string methodname, string args)
 {
-    return "> jade-cli " + methodname + " " + args + "\n";
+    return "> gocash-cli " + methodname + " " + args + "\n";
 }
 
 std::string HelpExampleRpc(string methodname, string args)
 {
     return "> curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", "
            "\"method\": \"" +
-           methodname + "\", \"params\": [" + args + "] }' -H 'content-type: text/plain;' http://127.0.0.1:9111/\n";
+           methodname + "\", \"params\": [" + args + "] }' -H 'content-type: text/plain;' http://127.0.0.1:9911/\n";
 }
 
 const CRPCTable tableRPC;

@@ -96,7 +96,7 @@ public:
 };
 
 /**
- * JADE RPC command dispatcher.
+ * gocash RPC command dispatcher.
  */
 class CRPCTable
 {

@@ -90,12 +90,12 @@ Object blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool txDe
 
     result.push_back(Pair("moneysupply",ValueFromAmount(blockindex->nMoneySupply)));
 
-    Object zjadeObj;
+    Object zgocashObj;
     for (auto denom : libzerocoin::zerocoinDenomList) {
-        zjadeObj.push_back(Pair(to_string(denom), ValueFromAmount(blockindex->mapZerocoinSupply.at(denom) * (denom*COIN))));
+        zgocashObj.push_back(Pair(to_string(denom), ValueFromAmount(blockindex->mapZerocoinSupply.at(denom) * (denom*COIN))));
     }
-    zjadeObj.emplace_back(Pair("total", ValueFromAmount(blockindex->GetZerocoinSupply())));
-    result.emplace_back(Pair("zJADEsupply", zjadeObj));
+    zgocashObj.emplace_back(Pair("total", ValueFromAmount(blockindex->GetZerocoinSupply())));
+    result.emplace_back(Pair("zgocashsupply", zgocashObj));
 
     return result;
 }
@@ -175,7 +175,7 @@ Value getrawmempool(const Array& params, bool fHelp)
             "{                           (json object)\n"
             "  \"transactionid\" : {       (json object)\n"
             "    \"size\" : n,             (numeric) transaction size in bytes\n"
-            "    \"fee\" : n,              (numeric) transaction fee in jade\n"
+            "    \"fee\" : n,              (numeric) transaction fee in gocash\n"
             "    \"time\" : n,             (numeric) local time transaction entered pool in seconds since 1 Jan 1970 GMT\n"
             "    \"height\" : n,           (numeric) block height when transaction entered pool\n"
             "    \"startingpriority\" : n, (numeric) priority when transaction entered pool\n"
@@ -278,17 +278,17 @@ Value getblock(const Array& params, bool fHelp)
             "  \"previousblockhash\" : \"hash\",  (string) The hash of the previous block\n"
             "  \"nextblockhash\" : \"hash\"       (string) The hash of the next block\n"
             "  \"moneysupply\" : \"supply\"       (numeric) The money supply when this block was added to the blockchain\n"
-            "  \"zJADEsupply\" :\n"
+            "  \"zgocashsupply\" :\n"
             "  {\n"
-            "     \"1\" : n,            (numeric) supply of 1 zJADE denomination\n"
-            "     \"5\" : n,            (numeric) supply of 5 zJADE denomination\n"
-            "     \"10\" : n,           (numeric) supply of 10 zJADE denomination\n"
-            "     \"50\" : n,           (numeric) supply of 50 zJADE denomination\n"
-            "     \"100\" : n,          (numeric) supply of 100 zJADE denomination\n"
-            "     \"500\" : n,          (numeric) supply of 500 zJADE denomination\n"
-            "     \"1000\" : n,         (numeric) supply of 1000 zJADE denomination\n"
-            "     \"5000\" : n,         (numeric) supply of 5000 zJADE denomination\n"
-            "     \"total\" : n,        (numeric) The total supply of all zJADE denominations\n"
+            "     \"1\" : n,            (numeric) supply of 1 zgocash denomination\n"
+            "     \"5\" : n,            (numeric) supply of 5 zgocash denomination\n"
+            "     \"10\" : n,           (numeric) supply of 10 zgocash denomination\n"
+            "     \"50\" : n,           (numeric) supply of 50 zgocash denomination\n"
+            "     \"100\" : n,          (numeric) supply of 100 zgocash denomination\n"
+            "     \"500\" : n,          (numeric) supply of 500 zgocash denomination\n"
+            "     \"1000\" : n,         (numeric) supply of 1000 zgocash denomination\n"
+            "     \"5000\" : n,         (numeric) supply of 5000 zgocash denomination\n"
+            "     \"total\" : n,        (numeric) The total supply of all zgocash denominations\n"
             "  }\n"
             "}\n"
             "\nResult (for verbose=false):\n"
@@ -422,14 +422,14 @@ Value gettxout(const Array& params, bool fHelp)
             "{\n"
             "  \"bestblock\" : \"hash\",    (string) the block hash\n"
             "  \"confirmations\" : n,       (numeric) The number of confirmations\n"
-            "  \"value\" : x.xxx,           (numeric) The transaction value in jade\n"
+            "  \"value\" : x.xxx,           (numeric) The transaction value in gocash\n"
             "  \"scriptPubKey\" : {         (json object)\n"
             "     \"asm\" : \"code\",       (string) \n"
             "     \"hex\" : \"hex\",        (string) \n"
             "     \"reqSigs\" : n,          (numeric) Number of required signatures\n"
             "     \"type\" : \"pubkeyhash\", (string) The type, e.g. pubkeyhash\n"
-            "     \"addresses\" : [          (array of string) array of jade addresses\n"
-            "     \"jadeaddress\"   	 	(string) jade address\n"
+            "     \"addresses\" : [          (array of string) array of gocash addresses\n"
+            "     \"gocashaddress\"   	 	(string) gocash address\n"
             "        ,...\n"
             "     ]\n"
             "  },\n"

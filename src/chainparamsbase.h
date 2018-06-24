@@ -9,8 +9,8 @@
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between jade-cli and jaded)
- * of a given instance of the JADE system.
+ * CBaseChainParams defines the base parameters (shared between gocash-cli and gocashd)
+ * of a given instance of the gocash system.
  */
 class CBaseChainParams
 {

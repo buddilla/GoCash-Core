@@ -26,7 +26,7 @@ CSporkManager sporkManager;
 std::map<uint256, CSporkMessage> mapSporks;
 std::map<int, CSporkMessage> mapSporksActive;
 
-// JADE: on startup load spork values from previous session if they exist in the sporkDB
+// gocash: on startup load spork values from previous session if they exist in the sporkDB
 void LoadSporksFromDB()
 {
     for (int i = SPORK_START; i <= SPORK_END; ++i) {
@@ -95,7 +95,7 @@ void ProcessSpork(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
         mapSporksActive[spork.nSporkID] = spork;
         sporkManager.Relay(spork);
 
-        // JADE: add to spork database.
+        // gocash: add to spork database.
         pSporkDB->WriteSpork(spork.nSporkID, spork);
     }
     if (strCommand == "getsporks") {
@@ -197,17 +197,17 @@ bool CSporkManager::Sign(CSporkMessage& spork)
     std::string errorMessage = "";
 
     if (!obfuScationSigner.SetKey(strMasterPrivKey, errorMessage, key2, pubkey2)) {
-        LogPrintf("CMasternodePayments::Sign - ERROR: Invalid masternodeprivkey: '%s'\n", errorMessage);
+        LogPrintf("CMasternodGOCashments::Sign - ERROR: Invalid masternodeprivkey: '%s'\n", errorMessage);
         return false;
     }
 
     if (!obfuScationSigner.SignMessage(strMessage, errorMessage, spork.vchSig, key2)) {
-        LogPrintf("CMasternodePayments::Sign - Sign message failed");
+        LogPrintf("CMasternodGOCashments::Sign - Sign message failed");
         return false;
     }
 
     if (!obfuScationSigner.VerifyMessage(pubkey2, spork.vchSig, strMessage, errorMessage)) {
-        LogPrintf("CMasternodePayments::Sign - Verify message failed");
+        LogPrintf("CMasternodGOCashments::Sign - Verify message failed");
         return false;
     }
 

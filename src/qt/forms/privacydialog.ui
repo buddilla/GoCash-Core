@@ -172,7 +172,7 @@
                       <item>
                        <layout class="QHBoxLayout" name="horizontalLayout_3">
                         <item>
-                         <widget class="QLabel" name="labelzJADEActions">
+                         <widget class="QLabel" name="labelzgocashActions">
                           <property name="font">
                            <font>
                             <pointsize>12</pointsize>
@@ -189,9 +189,9 @@
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLabel" name="labelzJADESyncStatus">
+                         <widget class="QLabel" name="labelzgocashSyncStatus">
                           <property name="toolTip">
-                           <string>The displayed information may be out of date. Your wallet automatically synchronizes with the JADE network after a connection is established, but this process has not completed yet.</string>
+                           <string>The displayed information may be out of date. Your wallet automatically synchronizes with the gocash network after a connection is established, but this process has not completed yet.</string>
                           </property>
                           <property name="styleSheet">
                            <string notr="true">QLabel { color: red; }</string>
@@ -244,7 +244,7 @@
                       <item>
                        <layout class="QHBoxLayout" name="horizontalLayout_4">
                         <item>
-                         <widget class="QPushButton" name="pushButtonMintzJADE">
+                         <widget class="QPushButton" name="pushButtonMintzgocash">
                           <property name="minimumSize">
                            <size>
                             <width>131</width>
@@ -252,7 +252,7 @@
                            </size>
                           </property>
                           <property name="toolTip">
-                           <string>Enter an amount of JADE to convert to zJADE</string>
+                           <string>Enter an amount of gocash to convert to zgocash</string>
                           </property>
                           <property name="text">
                            <string>Mint Zerocoin</string>
@@ -276,14 +276,14 @@
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLabel" name="labelzJADE_2">
+                         <widget class="QLabel" name="labelzgocash_2">
                           <property name="text">
-                           <string>zJADE</string>
+                           <string>zgocash</string>
                           </property>
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLabel" name="labelzJADEAmountText">
+                         <widget class="QLabel" name="labelzgocashAmountText">
                           <property name="toolTip">
                            <string>Available for minting are coins which are confirmed and not locked or Masternode collaterals.</string>
                           </property>
@@ -296,12 +296,12 @@
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLabel" name="labelzJADEAmountValue">
+                         <widget class="QLabel" name="labelzgocashAmountValue">
                           <property name="toolTip">
-                           <string>Enter an amount of JADE to convert to zJADE</string>
+                           <string>Enter an amount of gocash to convert to zgocash</string>
                           </property>
                           <property name="text">
-                           <string>0.000 000 00 JADE</string>
+                           <string>0.000 000 00 gocash</string>
                           </property>
                           <property name="alignment">
                            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -477,7 +477,7 @@
                              <enum>Qt::ActionsContextMenu</enum>
                             </property>
                             <property name="text">
-                             <string notr="true">0.00 JADE</string>
+                             <string notr="true">0.00 gocash</string>
                             </property>
                             <property name="textInteractionFlags">
                              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -600,21 +600,21 @@
                          <number>0</number>
                         </property>
                         <item>
-                         <widget class="QPushButton" name="pushButtonzJADEControl">
+                         <widget class="QPushButton" name="pushButtonzgocashControl">
                           <property name="text">
-                           <string>zJADE Control</string>
+                           <string>zgocash Control</string>
                           </property>
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLabel" name="labelzJADESelected">
+                         <widget class="QLabel" name="labelzgocashSelected">
                           <property name="text">
-                           <string>zJADE Selected:</string>
+                           <string>zgocash Selected:</string>
                           </property>
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLabel" name="labelzJADESelected_int">
+                         <widget class="QLabel" name="labelzgocashSelected_int">
                           <property name="text">
                            <string>0</string>
                           </property>
@@ -668,7 +668,7 @@
                       <item>
                        <layout class="QHBoxLayout" name="horizontalLayout_6">
                         <item>
-                         <widget class="QPushButton" name="pushButtonSpendzJADE">
+                         <widget class="QPushButton" name="pushButtonSpendzgocash">
                           <property name="minimumSize">
                            <size>
                             <width>131</width>
@@ -684,9 +684,9 @@
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLabel" name="labelzJADEBalanceText">
+                         <widget class="QLabel" name="labelzgocashBalanceText">
                           <property name="toolTip">
-                           <string>Available (mature and spendable) zJADE for spending</string>
+                           <string>Available (mature and spendable) zgocash for spending</string>
                           </property>
                           <property name="text">
                            <string>Available Balance:</string>
@@ -705,12 +705,12 @@
                            </font>
                           </property>
                           <property name="toolTip">
-                           <string>Available (mature and spendable) zJADE for spending
+                           <string>Available (mature and spendable) zgocash for spending
 
-zJADE are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</string>
+zgocash are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</string>
                           </property>
                           <property name="text">
-                           <string>0 zJADE</string>
+                           <string>0 zgocash</string>
                           </property>
                           <property name="alignment">
                            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -821,7 +821,7 @@ zJADE are mature when they have more than 20 confirmations AND more than 2 mints
                              </size>
                             </property>
                             <property name="toolTip">
-                             <string>The JADE address to send the payment to. Creates local payment to yourself when empty.</string>
+                             <string>The gocash address to send the payment to. Creates local payment to yourself when empty.</string>
                             </property>
                            </widget>
                           </item>
@@ -834,7 +834,7 @@ zJADE are mature when they have more than 20 confirmations AND more than 2 mints
                              <string/>
                             </property>
                             <property name="icon">
-                             <iconset resource="../jade.qrc">
+                             <iconset resource="../gocash.qrc">
                               <normaloff>:/icons/address-book</normaloff>:/icons/address-book</iconset>
                             </property>
                             <property name="shortcut">
@@ -851,7 +851,7 @@ zJADE are mature when they have more than 20 confirmations AND more than 2 mints
                              <string/>
                             </property>
                             <property name="icon">
-                             <iconset resource="../jade.qrc">
+                             <iconset resource="../gocash.qrc">
                               <normaloff>:/icons/editpaste</normaloff>:/icons/editpaste</iconset>
                             </property>
                             <property name="shortcut">
@@ -910,15 +910,15 @@ zJADE are mature when they have more than 20 confirmations AND more than 2 mints
                            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                           </property>
                           <property name="buddy">
-                           <cstring>zJADEpayAmount</cstring>
+                           <cstring>zgocashpayAmount</cstring>
                           </property>
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLineEdit" name="zJADEpayAmount"/>
+                         <widget class="QLineEdit" name="zgocashpayAmount"/>
                         </item>
                         <item>
-                         <widget class="QLabel" name="labelzJADE">
+                         <widget class="QLabel" name="labelzgocash">
                           <property name="minimumSize">
                            <size>
                             <width>55</width>
@@ -926,7 +926,7 @@ zJADE are mature when they have more than 20 confirmations AND more than 2 mints
                            </size>
                           </property>
                           <property name="text">
-                           <string>zJADE</string>
+                           <string>zgocash</string>
                           </property>
                          </widget>
                         </item>
@@ -1005,7 +1005,7 @@ zJADE are mature when they have more than 20 confirmations AND more than 2 mints
                       <item>
                        <layout class="QHBoxLayout" name="horizontalLayout_21">
                         <item>
-                         <widget class="QLabel" name="labelzJADEStats">
+                         <widget class="QLabel" name="labelzgocashStats">
                           <property name="font">
                            <font>
                             <pointsize>12</pointsize>
@@ -1085,7 +1085,7 @@ zJADE are mature when they have more than 20 confirmations AND more than 2 mints
                            </font>
                           </property>
                           <property name="toolTip">
-                           <string>Total Balance including unconfirmed and immature zJADE</string>
+                           <string>Total Balance including unconfirmed and immature zgocash</string>
                           </property>
                           <property name="text">
                            <string>Total Zerocoin  Balance:</string>
@@ -1123,10 +1123,10 @@ zJADE are mature when they have more than 20 confirmations AND more than 2 mints
                            </font>
                           </property>
                           <property name="toolTip">
-                           <string>Total Balance including unconfirmed and immature zJADE</string>
+                           <string>Total Balance including unconfirmed and immature zgocash</string>
                           </property>
                           <property name="text">
-                           <string>0 zJADE</string>
+                           <string>0 zgocash</string>
                           </property>
                           <property name="alignment">
                            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1583,14 +1583,14 @@ Immature: confirmed, but less than 2 mints of the same denomination after it was
                         <item>
                          <widget class="QLabel" name="label_AutoMintStatus">
                           <property name="toolTip">
-                           <string>Show the current status of automatic zJADE minting.
+                           <string>Show the current status of automatic zgocash minting.
 
 To change the status (restart required):
-- enable: add 'enablezeromint=1' to jade.conf
-- disable: add 'enablezeromint=0' to jade.conf
+- enable: add 'enablezeromint=1' to gocash.conf
+- disable: add 'enablezeromint=0' to gocash.conf
 
 To change the percentage (no restart required):
-- menu Settings-&gt;Options-&gt;Percentage of autominted zJADE
+- menu Settings-&gt;Options-&gt;Percentage of autominted zgocash
 
 </string>
                           </property>
@@ -1670,7 +1670,7 @@ To change the percentage (no restart required):
                            </font>
                           </property>
                           <property name="text">
-                           <string>0 zJADE</string>
+                           <string>0 zgocash</string>
                           </property>
                          </widget>
                         </item>
@@ -1701,7 +1701,7 @@ To change the percentage (no restart required):
                         <item>
                          <widget class="QLabel" name="labelZsupplyAmount1">
                           <property name="text">
-                           <string>0 zJADE</string>
+                           <string>0 zgocash</string>
                           </property>
                          </widget>
                         </item>
@@ -1732,7 +1732,7 @@ To change the percentage (no restart required):
                         <item>
                          <widget class="QLabel" name="labelZsupplyAmount5">
                           <property name="text">
-                           <string>0 zJADE</string>
+                           <string>0 zgocash</string>
                           </property>
                          </widget>
                         </item>
@@ -1763,7 +1763,7 @@ To change the percentage (no restart required):
                         <item>
                          <widget class="QLabel" name="labelZsupplyAmount10">
                           <property name="text">
-                           <string>0 zJADE</string>
+                           <string>0 zgocash</string>
                           </property>
                          </widget>
                         </item>
@@ -1794,7 +1794,7 @@ To change the percentage (no restart required):
                         <item>
                          <widget class="QLabel" name="labelZsupplyAmount50">
                           <property name="text">
-                           <string>0 zJADE</string>
+                           <string>0 zgocash</string>
                           </property>
                          </widget>
                         </item>
@@ -1825,7 +1825,7 @@ To change the percentage (no restart required):
                         <item>
                          <widget class="QLabel" name="labelZsupplyAmount100">
                           <property name="text">
-                           <string>0 zJADE</string>
+                           <string>0 zgocash</string>
                           </property>
                          </widget>
                         </item>
@@ -1856,7 +1856,7 @@ To change the percentage (no restart required):
                         <item>
                          <widget class="QLabel" name="labelZsupplyAmount500">
                           <property name="text">
-                           <string>0 zJADE</string>
+                           <string>0 zgocash</string>
                           </property>
                          </widget>
                         </item>
@@ -1887,7 +1887,7 @@ To change the percentage (no restart required):
                         <item>
                          <widget class="QLabel" name="labelZsupplyAmount1000">
                           <property name="text">
-                           <string>0 zJADE</string>
+                           <string>0 zgocash</string>
                           </property>
                          </widget>
                         </item>
@@ -1918,7 +1918,7 @@ To change the percentage (no restart required):
                         <item>
                          <widget class="QLabel" name="labelZsupplyAmount5000">
                           <property name="text">
-                           <string>0 zJADE</string>
+                           <string>0 zgocash</string>
                           </property>
                          </widget>
                         </item>
@@ -2048,7 +2048,7 @@ To change the percentage (no restart required):
          <enum>Qt::ActionsContextMenu</enum>
         </property>
         <property name="text">
-         <string notr="true">0.000 000 00 JADE</string>
+         <string notr="true">0.000 000 00 gocash</string>
         </property>
         <property name="textInteractionFlags">
          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -2130,7 +2130,7 @@ To change the percentage (no restart required):
            <enum>Qt::ActionsContextMenu</enum>
           </property>
           <property name="text">
-           <string notr="true">0.00 JADE</string>
+           <string notr="true">0.00 gocash</string>
           </property>
           <property name="textInteractionFlags">
            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -2352,7 +2352,7 @@ To change the percentage (no restart required):
          <enum>Qt::ActionsContextMenu</enum>
         </property>
         <property name="text">
-         <string notr="true">0.000 000 00 JADE</string>
+         <string notr="true">0.000 000 00 gocash</string>
         </property>
         <property name="textInteractionFlags">
          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -2669,7 +2669,7 @@ To change the percentage (no restart required):
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../jade.qrc"/>
+  <include location="../gocash.qrc"/>
  </resources>
  <connections/>
 </ui>

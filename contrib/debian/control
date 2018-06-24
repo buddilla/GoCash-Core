@@ -1,4 +1,4 @@
-Source: jade
+Source: gocash
 Section: utils
 Priority: optional
 Maintainer: Jonas Smedegaard <dr@jones.dk> ***TODO***
@@ -22,15 +22,15 @@ Build-Depends: debhelper,
  libqrencode-dev,
  libprotobuf-dev, protobuf-compiler
 Standards-Version: 3.9.2
-Homepage: http://www.jade.org
-Vcs-Git: git://github.com/jadeproject/JADE.git
-Vcs-Browser: http://github.com/jadeproject/JADE
+Homepage: http://www.gocash.org
+Vcs-Git: git://github.com/gocashproject/gocash.git
+Vcs-Browser: http://github.com/gocashproject/gocash
 
-Package: jaded
+Package: gocashd
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - daemon
- JADE is a free open source peer-to-peer electronic cash system that
+ gocash is a free open source peer-to-peer electronic cash system that
  is completely decentralized, without the need for a central server or
  trusted parties.  Users hold the crypto keys to their own money and
  transact directly with each other, with the help of a P2P network to
@@ -39,14 +39,14 @@ Description: peer-to-peer network based digital currency - daemon
  Full transaction history is stored locally at each client.  This
  requires 1+ GB of space, slowly growing.
  .
- This package provides the daemon, jaded, and the CLI tool
- jade-cli to interact with the daemon.
+ This package provides the daemon, gocashd, and the CLI tool
+ gocash-cli to interact with the daemon.
 
-Package: jade-qt
+Package: gocash-qt
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - Qt GUI
- JADE is a free open source peer-to-peer electronic cash system that
+ gocash is a free open source peer-to-peer electronic cash system that
  is completely decentralized, without the need for a central server or
  trusted parties.  Users hold the crypto keys to their own money and
  transact directly with each other, with the help of a P2P network to
@@ -55,4 +55,4 @@ Description: peer-to-peer network based digital currency - Qt GUI
  Full transaction history is stored locally at each client.  This
  requires 1+ GB of space, slowly growing.
  .
- This package provides JADE-Qt, a GUI for JADE based on Qt.
+ This package provides gocash-Qt, a GUI for gocash based on Qt.

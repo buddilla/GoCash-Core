@@ -1,10 +1,10 @@
 Sample configuration files for:
 
-SystemD: jaded.service
-Upstart: jaded.conf
-OpenRC:  jaded.openrc
-         jaded.openrcconf
-CentOS:  jaded.init
+SystemD: gocashd.service
+Upstart: gocashd.conf
+OpenRC:  gocashd.openrc
+         gocashd.openrcconf
+CentOS:  gocashd.init
 
 have been made available to assist packagers in creating node packages here.
 

@@ -12,8 +12,8 @@ When a "Transaction Lock" occurs the hash of the related transaction is broadcas
 * `zmqpubhashtxlock`: publishes the transaction hash when locked via SwiftX
 
 This mechanism has been integrated into Bitcore-Node-PHore which allows for notification to be broadcast through Insight API in one of two ways:
-* WebSocket: [https://github.com/jadeproject/insight-api-jade#web-socket-api](https://github.com/jadeproject/insight-api-jade#web-socket-api) 
-* API: [https://github.com/jadeproject/insight-api-jade#swifttx-transactions](https://github.com/jadeproject/insight-api-jade#swifttx-transactions) 
+* WebSocket: [https://github.com/gocashproject/insight-api-gocash#web-socket-api](https://github.com/gocashproject/insight-api-gocash#web-socket-api) 
+* API: [https://github.com/gocashproject/insight-api-gocash#swifttx-transactions](https://github.com/gocashproject/insight-api-gocash#swifttx-transactions) 
 
 ####Command line option
 
@@ -27,13 +27,13 @@ When a wallet SwiftX transaction is successfully locked a shell command provided
 
 Details pertaining to an observed "Transaction Lock" can also be retrieved through RPC, it’s important however to understand the underlying mechanism.
 
-By default, the JADE Core daemon will launch using the following constant:
+By default, the gocash Core daemon will launch using the following constant:
 
 ```
 static const int DEFAULT_SWIFTTX_DEPTH = 5;
 ```
 
-This value can be overridden by passing the following argument to the JADE Core daemon:
+This value can be overridden by passing the following argument to the gocash Core daemon:
 
 ```
 -swifttxdepth=<n>

@@ -2,7 +2,7 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2018 The JADE developers
+// Copyright (c) 2018 The gocash developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -49,7 +49,7 @@ using namespace std;
 using namespace libzerocoin;
 
 #if defined(NDEBUG)
-#error "JADE cannot be compiled without assertions."
+#error "gocash cannot be compiled without assertions."
 #endif
 
 // 6 comes from OPCODE (1) + vch.size() (1) + BIGNUM size (4)
@@ -1624,7 +1624,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState& state, const CTransa
             //Check that txid is not already in the chain
             int nHeightTx = 0;
             if (IsTransactionInChain(tx.GetHash(), nHeightTx))
-                return state.Invalid(error("AcceptToMemoryPool : zJADE spend tx %s already in block %d", tx.GetHash().GetHex(), nHeightTx),
+                return state.Invalid(error("AcceptToMemoryPool : zgocash spend tx %s already in block %d", tx.GetHash().GetHex(), nHeightTx),
                                      REJECT_DUPLICATE, "bad-txns-inputs-spent");
 
             //Check for double spending of serial #'s
@@ -1634,12 +1634,12 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState& state, const CTransa
                 CoinSpend spend = TxInToZerocoinSpend(txIn);
                 int nHeightTx = 0;
                 if (IsSerialInBlockchain(spend.getCoinSerialNumber(), nHeightTx))
-                    return state.Invalid(error("%s : zJADE spend with serial %s is already in block %d\n",
+                    return state.Invalid(error("%s : zgocash spend with serial %s is already in block %d\n",
                                                 __func__, spend.getCoinSerialNumber().GetHex(), nHeightTx));
 
                 //Is serial in the acceptable range
                 if (!spend.HasValidSerial(Params().Zerocoin_Params()))
-                    return state.Invalid(error("%s : zJADE spend with serial %s from tx %s is not in valid range\n",
+                    return state.Invalid(error("%s : zgocash spend with serial %s from tx %s is not in valid range\n",
                                                __func__, spend.getCoinSerialNumber().GetHex(), tx.GetHash().GetHex()));
             }
         } else {
@@ -2164,24 +2164,24 @@ int64_t GetBlockValue(int nHeight)
     int64_t nSubsidy = 0;
 
     if (nHeight == 0) {
-        nSubsidy = 1000000 * COIN;
+        nSubsidy = 200000 * COIN;
     } else if (nHeight > 0 && nHeight <= 1000) {
-        nSubsidy = 2 * COIN;
+        nSubsidy = 3 * COIN;
     } else if (nHeight > 1000 && nHeight <= 233750) {
-        nSubsidy = 4 * COIN;
+        nSubsidy = 3 * COIN;
     } else if (nHeight > 233750 && nHeight <= 545416) {
-        nSubsidy = 8 * COIN;
+        nSubsidy = 2 * COIN;
     } else if (nHeight > 545416 && nHeight <= 1012916) {
-    	 nSubsidy = 10 * COIN;
+    	 nSubsidy = 2 * COIN;
     } else if (nHeight > 1012916 && nHeight <= 1947916) {
-         nSubsidy = 12 * COIN;
+         nSubsidy = 1 * COIN;
     } else {
         nSubsidy = 0 * COIN;
     }
     return nSubsidy;
 }
 
-int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount)
+int64_t GetMasternodGOCashment(int nHeight, int64_t blockValue, int nMasternodeCount)
 {
     int64_t ret = 0;
 
@@ -2492,7 +2492,7 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
         const CTransaction& tx = block.vtx[i];
 
         /** UNDO ZEROCOIN DATABASING
-         * note we only undo zerocoin databasing in the following statement, value to and from JADE
+         * note we only undo zerocoin databasing in the following statement, value to and from gocash
          * addresses should still be handled by the typical bitcoin based undo code
          * */
         if (tx.ContainsZerocoins()) {
@@ -2625,11 +2625,11 @@ static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck()
 {
-    RenameThread("jade-scriptch");
+    RenameThread("gocash-scriptch");
     scriptcheckqueue.Thread();
 }
 
-void RecalculateZJADEMinted()
+void RecalculateZgocashMinted()
 {
     CBlockIndex *pindex = chainActive[Params().Zerocoin_StartHeight()];
     int nHeightEnd = chainActive.Height();
@@ -2656,14 +2656,14 @@ void RecalculateZJADEMinted()
     }
 }
 
-void RecalculateZJADESpent()
+void RecalculateZgocashSpent()
 {
     CBlockIndex* pindex = chainActive[Params().Zerocoin_StartHeight()];
     while (true) {
         if (pindex->nHeight % 1000 == 0)
             LogPrintf("%s : block %d...\n", __func__, pindex->nHeight);
 
-        //Rewrite zJADE supply
+        //Rewrite zgocash supply
         CBlock block;
         assert(ReadBlockFromDisk(block, pindex));
 
@@ -2672,13 +2672,13 @@ void RecalculateZJADESpent()
         //Reset the supply to previous block
         pindex->mapZerocoinSupply = pindex->pprev->mapZerocoinSupply;
 
-        //Add mints to zJADE supply
+        //Add mints to zgocash supply
         for (auto denom : libzerocoin::zerocoinDenomList) {
             long nDenomAdded = count(pindex->vMintDenominationsInBlock.begin(), pindex->vMintDenominationsInBlock.end(), denom);
             pindex->mapZerocoinSupply.at(denom) += nDenomAdded;
         }
 
-        //Remove spends from zJADE supply
+        //Remove spends from zgocash supply
         for (auto denom : listDenomsSpent)
             pindex->mapZerocoinSupply.at(denom)--;
 
@@ -2692,7 +2692,7 @@ void RecalculateZJADESpent()
     }
 }
 
-bool RecalculateJADESupply(int nHeightStart)
+bool RecalculategocashSupply(int nHeightStart)
 {
     if (nHeightStart > chainActive.Height())
         return false;
@@ -2752,7 +2752,7 @@ bool RecalculateJADESupply(int nHeightStart)
 
 bool ReindexAccumulators(list<uint256>& listMissingCheckpoints, string& strError)
 {
-    // JADE: recalculate Accumulator Checkpoints that failed to database properly
+    // gocash: recalculate Accumulator Checkpoints that failed to database properly
     if (!listMissingCheckpoints.empty() && chainActive.Height() >= Params().Zerocoin_StartHeight()) {
         //uiInterface.InitMessage(_("Calculating missing accumulators..."));
         LogPrintf("%s : finding missing checkpoints\n", __func__);
@@ -2964,7 +2964,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                 if (zerocoinDB->ReadCoinSpend(spend.getCoinSerialNumber(), hashTxFromDB)) {
                     if(IsSerialInBlockchain(spend.getCoinSerialNumber(), nHeightTxSpend)) {
                         if(!fVerifyingBlocks || (fVerifyingBlocks && pindex->nHeight > nHeightTxSpend))
-                            return state.DoS(100, error("%s : zJADE with serial %s is already in the block %d\n",
+                            return state.DoS(100, error("%s : zgocash with serial %s is already in the block %d\n",
                                                         __func__, spend.getCoinSerialNumber().GetHex(), nHeightTxSpend));
                     }
                 }
@@ -3063,7 +3063,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     pindex->nMoneySupply = nMoneySupplyPrev + nValueOut - nValueIn;
     pindex->nMint = pindex->nMoneySupply - nMoneySupplyPrev + nFees;
 
-//    LogPrintf("XX69----------> ConnectBlock(): nValueOut: %s, nValueIn: %s, nFees: %s, nMint: %s zJADESpent: %s\n",
+//    LogPrintf("XX69----------> ConnectBlock(): nValueOut: %s, nValueIn: %s, nFees: %s, nMint: %s zgocashSpent: %s\n",
 //              FormatMoney(nValueOut), FormatMoney(nValueIn),
 //              FormatMoney(nFees), FormatMoney(pindex->nMint), FormatMoney(nAmountZerocoinSpent));
 
@@ -3230,7 +3230,7 @@ void static UpdateTip(CBlockIndex* pindexNew)
 {
     chainActive.SetTip(pindexNew);
 
-    // If turned on AutoZeromint will automatically convert JADE to zJADE
+    // If turned on AutoZeromint will automatically convert gocash to zgocash
     if (pwalletMain->isZeromintEnabled ())
         pwalletMain->AutoZeromint ();
 
@@ -4061,7 +4061,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
                 nHeight = (*mi).second->nHeight + 1;
         }
 
-        // JADE
+        // gocash
         // It is entierly possible that we don't have enough data and this could fail
         // (i.e. the block could indeed be valid). Store the block for later consideration
         // but issue an initial reject message.
@@ -4086,13 +4086,13 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
         if (!CheckTransaction(tx, fZerocoinActive, chainActive.Height() + 1 >= Params().Zerocoin_Block_EnforceSerialRange(), state))
             return error("CheckBlock() : CheckTransaction failed");
 
-        // double check that there are no double spent zJADE spends in this block
+        // double check that there are no double spent zgocash spends in this block
         if (tx.IsZerocoinSpend()) {
             for (const CTxIn txIn : tx.vin) {
                 if (txIn.scriptSig.IsZerocoinSpend()) {
                     libzerocoin::CoinSpend spend = TxInToZerocoinSpend(txIn);
                     if (count(vBlockSerials.begin(), vBlockSerials.end(), spend.getCoinSerialNumber()))
-                        return state.DoS(100, error("%s : Double spending of zJADE serial %s in block\n Block: %s",
+                        return state.DoS(100, error("%s : Double spending of zgocash serial %s in block\n Block: %s",
                                                     __func__, spend.getCoinSerialNumber().GetHex(), block.ToString()));
                     vBlockSerials.emplace_back(spend.getCoinSerialNumber());
                 }
@@ -4455,7 +4455,7 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
         }
     }
     if (nMints || nSpends)
-        LogPrintf("%s : block contains %d zJADE mints and %d zJADE spends\n", __func__, nMints, nSpends);
+        LogPrintf("%s : block contains %d zgocash mints and %d zgocash spends\n", __func__, nMints, nSpends);
 
     // ppcoin: check proof-of-stake
     // Limited duplicity on stake: prevents block flood attack
@@ -4501,7 +4501,7 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
     if (!fLiteMode) {
         if (masternodeSync.RequestedMasternodeAssets > MASTERNODE_SYNC_LIST) {
             obfuScationPool.NewBlock();
-            masternodePayments.ProcessBlock(GetHeight() + 10);
+            masternodGOCashments.ProcessBlock(GetHeight() + 10);
             budget.NewBlock();
         }
     }
@@ -5275,7 +5275,7 @@ bool static AlreadyHave(const CInv& inv)
     case MSG_SPORK:
         return mapSporks.count(inv.hash);
     case MSG_MASTERNODE_WINNER:
-        if (masternodePayments.mapMasternodePayeeVotes.count(inv.hash)) {
+        if (masternodGOCashments.mapMasternodGOCasheeVotes.count(inv.hash)) {
             masternodeSync.AddedMasternodeWinner(inv.hash);
             return true;
         }
@@ -5443,10 +5443,10 @@ void static ProcessGetData(CNode* pfrom)
                     }
                 }
                 if (!pushed && inv.type == MSG_MASTERNODE_WINNER) {
-                    if (masternodePayments.mapMasternodePayeeVotes.count(inv.hash)) {
+                    if (masternodGOCashments.mapMasternodGOCasheeVotes.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
-                        ss << masternodePayments.mapMasternodePayeeVotes[inv.hash];
+                        ss << masternodGOCashments.mapMasternodGOCasheeVotes[inv.hash];
                         pfrom->PushMessage("mnw", ss);
                         pushed = true;
                     }
@@ -5569,7 +5569,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             return false;
         }
 
-        // JADE: We use certain sporks during IBD, so check to see if they are
+        // gocash: We use certain sporks during IBD, so check to see if they are
         // available. If not, ask the first peer connected for them.
         bool fMissingSporks = !pSporkDB->SporkExists(SPORK_14_NEW_PROTOCOL_ENFORCEMENT) &&
                 !pSporkDB->SporkExists(SPORK_15_NEW_PROTOCOL_ENFORCEMENT_2) &&
@@ -6373,7 +6373,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         obfuScationPool.ProcessMessageObfuscation(pfrom, strCommand, vRecv);
         mnodeman.ProcessMessage(pfrom, strCommand, vRecv);
         budget.ProcessMessage(pfrom, strCommand, vRecv);
-        masternodePayments.ProcessMessageMasternodePayments(pfrom, strCommand, vRecv);
+        masternodGOCashments.ProcessMessageMasternodGOCashments(pfrom, strCommand, vRecv);
         ProcessMessageSwiftTX(pfrom, strCommand, vRecv);
         ProcessSpork(pfrom, strCommand, vRecv);
         masternodeSync.ProcessMessage(pfrom, strCommand, vRecv);

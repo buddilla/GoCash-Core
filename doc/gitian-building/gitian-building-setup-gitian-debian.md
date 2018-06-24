@@ -66,13 +66,13 @@ cd ..
 
 **Note**: When sudo asks for a password, enter the password for the user `gitianuser` not for `root`.
 
-Clone the git repositories for jade and Gitian.
+Clone the git repositories for gocash and Gitian.
 
 ```bash
 git clone https://github.com/devrandom/gitian-builder.git
-git clone https://github.com/jadeproject/jade
-git clone https://github.com/jadeproject/gitian.sigs.git
-git clone https://github.com/jadeproject/jade-detached-sigs.git
+git clone https://github.com/gocashproject/gocash
+git clone https://github.com/gocashproject/gitian.sigs.git
+git clone https://github.com/gocashproject/gocash-detached-sigs.git
 ```
 
 Setting up the Gitian image

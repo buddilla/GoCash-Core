@@ -6,7 +6,7 @@
 #define BITCOIN_QT_BITCOINGUI_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/jade-config.h"
+#include "config/gocash-config.h"
 #endif
 
 #include "amount.h"
@@ -189,7 +189,7 @@ public slots:
     */
     void setEncryptionStatus(int status);
 
-    bool handlePaymentRequest(const SendCoinsRecipient& recipient);
+    bool handlGOCashmentRequest(const SendCoinsRecipient& recipient);
 
     /** Show incoming transaction notification for new transactions. */
     void incomingTransaction(const QString& date, int unit, const CAmount& amount, const QString& type, const QString& address);

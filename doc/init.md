@@ -1,60 +1,60 @@
-Sample init scripts and service configuration for jaded
+Sample init scripts and service configuration for gocashd
 ==========================================================
 
 Sample scripts and configuration files for systemd, Upstart and OpenRC
 can be found in the contrib/init folder.
 
-    contrib/init/jaded.service:    systemd service unit configuration
-    contrib/init/jaded.openrc:     OpenRC compatible SysV style init script
-    contrib/init/jaded.openrcconf: OpenRC conf.d file
-    contrib/init/jaded.conf:       Upstart service configuration file
-    contrib/init/jaded.init:       CentOS compatible SysV style init script
+    contrib/init/gocashd.service:    systemd service unit configuration
+    contrib/init/gocashd.openrc:     OpenRC compatible SysV style init script
+    contrib/init/gocashd.openrcconf: OpenRC conf.d file
+    contrib/init/gocashd.conf:       Upstart service configuration file
+    contrib/init/gocashd.init:       CentOS compatible SysV style init script
 
 1. Service User
 ---------------------------------
 
-All three startup configurations assume the existence of a "jade" user
+All three startup configurations assume the existence of a "gocash" user
 and group.  They must be created before attempting to use these scripts.
 
 2. Configuration
 ---------------------------------
 
-At a bare minimum, jaded requires that the rpcpassword setting be set
+At a bare minimum, gocashd requires that the rpcpassword setting be set
 when running as a daemon.  If the configuration file does not exist or this
-setting is not set, jaded will shutdown promptly after startup.
+setting is not set, gocashd will shutdown promptly after startup.
 
 This password does not have to be remembered or typed as it is mostly used
-as a fixed token that jaded and client programs read from the configuration
+as a fixed token that gocashd and client programs read from the configuration
 file, however it is recommended that a strong and secure password be used
 as this password is security critical to securing the wallet should the
 wallet be enabled.
 
-If jaded is run with "-daemon" flag, and no rpcpassword is set, it will
+If gocashd is run with "-daemon" flag, and no rpcpassword is set, it will
 print a randomly generated suitable password to stderr.  You can also
 generate one from the shell yourself like this:
 
 bash -c 'tr -dc a-zA-Z0-9 < /dev/urandom | head -c32 && echo'
 
-Once you have a password in hand, set rpcpassword= in /etc/jade/jade.conf
+Once you have a password in hand, set rpcpassword= in /etc/gocash/gocash.conf
 
 For an example configuration file that describes the configuration settings,
-see contrib/debian/examples/jade.conf.
+see contrib/debian/examples/gocash.conf.
 
 3. Paths
 ---------------------------------
 
 All three configurations assume several paths that might need to be adjusted.
 
-Binary:              /usr/bin/jaded
-Configuration file:  /etc/jade/jade.conf
-Data directory:      /var/lib/jaded
-PID file:            /var/run/jaded/jaded.pid (OpenRC and Upstart)
-                     /var/lib/jaded/jaded.pid (systemd)
+Binary:              /usr/bin/gocashd
+Configuration file:  /etc/gocash/gocash.conf
+Data directory:      /var/lib/gocashd
+PID file:            /var/run/gocashd/gocashd.pid (OpenRC and Upstart)
+                     /var/lib/gocashd/gocashd.pid (systemd)
 
 The configuration file, PID directory (if applicable) and data directory
-should all be owned by the jade user and group.  It is advised for security
+should all be owned by the gocash user and group.  It is advised for security
 reasons to make the configuration file and data directory only readable by the
-jade user and group.  Access to jade-cli and other jaded rpc clients
+gocash user and group.  Access to gocash-cli and other gocashd rpc clients
 can then be controlled by group membership.
 
 4. Installing Service Configuration
@@ -66,19 +66,19 @@ Installing this .service file consists on just copying it to
 /usr/lib/systemd/system directory, followed by the command
 "systemctl daemon-reload" in order to update running systemd configuration.
 
-To test, run "systemctl start jaded" and to enable for system startup run
-"systemctl enable jaded"
+To test, run "systemctl start gocashd" and to enable for system startup run
+"systemctl enable gocashd"
 
 4b) OpenRC
 
-Rename jaded.openrc to jaded and drop it in /etc/init.d.  Double
+Rename gocashd.openrc to gocashd and drop it in /etc/init.d.  Double
 check ownership and permissions and make it executable.  Test it with
-"/etc/init.d/jaded start" and configure it to run on startup with
-"rc-update add jaded"
+"/etc/init.d/gocashd start" and configure it to run on startup with
+"rc-update add gocashd"
 
 4c) Upstart (for Debian/Ubuntu based distributions)
 
-Drop jaded.conf in /etc/init.  Test by running "service jaded start"
+Drop gocashd.conf in /etc/init.  Test by running "service gocashd start"
 it will automatically start on reboot.
 
 NOTE: This script is incompatible with CentOS 5 and Amazon Linux 2014 as they
@@ -86,11 +86,11 @@ use old versions of Upstart and do not supply the start-stop-daemon uitility.
 
 4d) CentOS
 
-Copy jaded.init to /etc/init.d/jaded. Test by running "service jaded start".
+Copy gocashd.init to /etc/init.d/gocashd. Test by running "service gocashd start".
 
-Using this script, you can adjust the path and flags to the jaded program by
-setting the JADED and FLAGS environment variables in the file
-/etc/sysconfig/jaded. You can also use the DAEMONOPTS environment variable here.
+Using this script, you can adjust the path and flags to the gocashd program by
+setting the gocashD and FLAGS environment variables in the file
+/etc/sysconfig/gocashd. You can also use the DAEMONOPTS environment variable here.
 
 5. Auto-respawn
 -----------------------------------

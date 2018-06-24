@@ -252,7 +252,7 @@ void CMasternodeMan::CheckAndRemove(bool forceExpiredRemoval)
         if ((*it).activeState == CMasternode::MASTERNODE_REMOVE ||
             (*it).activeState == CMasternode::MASTERNODE_VIN_SPENT ||
             (forceExpiredRemoval && (*it).activeState == CMasternode::MASTERNODE_EXPIRED) ||
-            (*it).protocolVersion < masternodePayments.GetMinMasternodePaymentsProto()) {
+            (*it).protocolVersion < masternodGOCashments.GetMinMasternodGOCashmentsProto()) {
             LogPrint("masternode", "CMasternodeMan: Removing inactive Masternode %s - %i now\n", (*it).vin.prevout.hash.ToString(), size() - 1);
 
             //erase all of the broadcasts we've seen from this vin
@@ -378,7 +378,7 @@ int CMasternodeMan::stable_size ()
 int CMasternodeMan::CountEnabled(int protocolVersion)
 {
     int i = 0;
-    protocolVersion = protocolVersion == -1 ? masternodePayments.GetMinMasternodePaymentsProto() : protocolVersion;
+    protocolVersion = protocolVersion == -1 ? masternodGOCashments.GetMinMasternodGOCashmentsProto() : protocolVersion;
 
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
         mn.Check();
@@ -391,7 +391,7 @@ int CMasternodeMan::CountEnabled(int protocolVersion)
 
 void CMasternodeMan::CountNetworks(int protocolVersion, int& ipv4, int& ipv6, int& onion)
 {
-    protocolVersion = protocolVersion == -1 ? masternodePayments.GetMinMasternodePaymentsProto() : protocolVersion;
+    protocolVersion = protocolVersion == -1 ? masternodGOCashments.GetMinMasternodGOCashmentsProto() : protocolVersion;
 
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
         mn.Check();
@@ -491,10 +491,10 @@ CMasternode* CMasternodeMan::GetNextMasternodeInQueueForPayment(int nBlockHeight
         if (!mn.IsEnabled()) continue;
 
         // //check protocol version
-        if (mn.protocolVersion < masternodePayments.GetMinMasternodePaymentsProto()) continue;
+        if (mn.protocolVersion < masternodGOCashments.GetMinMasternodGOCashmentsProto()) continue;
 
         //it's in the list (up to 8 entries ahead of current block to allow propagation) -- so let's skip it
-        if (masternodePayments.IsScheduled(mn, nBlockHeight)) continue;
+        if (masternodGOCashments.IsScheduled(mn, nBlockHeight)) continue;
 
         //it's too new, wait for a cycle
         if (fFilterSigTime && mn.sigTime + (nMnCount * 2.6 * 60) > GetAdjustedTime()) continue;
@@ -502,7 +502,7 @@ CMasternode* CMasternodeMan::GetNextMasternodeInQueueForPayment(int nBlockHeight
         //make sure it has as many confirmations as there are masternodes
         if (mn.GetMasternodeInputAge() < nMnCount) continue;
 
-        vecMasternodeLastPaid.push_back(make_pair(mn.SecondsSincePayment(), mn.vin));
+        vecMasternodeLastPaid.push_back(make_pair(mn.SecondsSincGOCashment(), mn.vin));
     }
 
     nCount = (int)vecMasternodeLastPaid.size();
@@ -539,7 +539,7 @@ CMasternode* CMasternodeMan::FindRandomNotInVec(std::vector<CTxIn>& vecToExclude
 {
     LOCK(cs);
 
-    protocolVersion = protocolVersion == -1 ? masternodePayments.GetMinMasternodePaymentsProto() : protocolVersion;
+    protocolVersion = protocolVersion == -1 ? masternodGOCashments.GetMinMasternodGOCashmentsProto() : protocolVersion;
 
     int nCountEnabled = CountEnabled(protocolVersion);
     LogPrint("masternode", "CMasternodeMan::FindRandomNotInVec - nCountEnabled - vecToExclude.size() %d\n", nCountEnabled - vecToExclude.size());
@@ -887,8 +887,8 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
 
         strMessage = addr.ToString() + boost::lexical_cast<std::string>(sigTime) + vchPubKey + vchPubKey2 + boost::lexical_cast<std::string>(protocolVersion) + donationAddress.ToString() + boost::lexical_cast<std::string>(donationPercentage);
 
-        if (protocolVersion < masternodePayments.GetMinMasternodePaymentsProto()) {
-            LogPrint("masternode","dsee - ignoring outdated Masternode %s protocol version %d < %d\n", vin.prevout.hash.ToString(), protocolVersion, masternodePayments.GetMinMasternodePaymentsProto());
+        if (protocolVersion < masternodGOCashments.GetMinMasternodGOCashmentsProto()) {
+            LogPrint("masternode","dsee - ignoring outdated Masternode %s protocol version %d < %d\n", vin.prevout.hash.ToString(), protocolVersion, masternodGOCashments.GetMinMasternodGOCashmentsProto());
             Misbehaving(pfrom->GetId(), 1);
             return;
         }
@@ -925,8 +925,8 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         }
 
         if (Params().NetworkID() == CBaseChainParams::MAIN) {
-            if (addr.GetPort() != 9111) return;
-        } else if (addr.GetPort() == 9111)
+            if (addr.GetPort() != 9911) return;
+        } else if (addr.GetPort() == 9911)
             return;
 
         //search existing Masternode list, this is where we update existing Masternodes with new dsee broadcasts
@@ -955,7 +955,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
                         TRY_LOCK(cs_vNodes, lockNodes);
                         if (!lockNodes) return;
                         BOOST_FOREACH (CNode* pnode, vNodes)
-                            if (pnode->nVersion >= masternodePayments.GetMinMasternodePaymentsProto())
+                            if (pnode->nVersion >= masternodGOCashments.GetMinMasternodGOCashmentsProto())
                                 pnode->PushMessage("dsee", vin, addr, vchSig, sigTime, pubkey, pubkey2, count, current, lastUpdated, protocolVersion, donationAddress, donationPercentage);
                     }
                 }
@@ -1005,13 +1005,13 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
             }
 
             // verify that sig time is legit in past
-            // should be at least not earlier than block when 10000 JADE tx got MASTERNODE_MIN_CONFIRMATIONS
+            // should be at least not earlier than block when 10000 gocash tx got MASTERNODE_MIN_CONFIRMATIONS
             uint256 hashBlock = 0;
             CTransaction tx2;
             GetTransaction(vin.prevout.hash, tx2, hashBlock, true);
             BlockMap::iterator mi = mapBlockIndex.find(hashBlock);
             if (mi != mapBlockIndex.end() && (*mi).second) {
-                CBlockIndex* pMNIndex = (*mi).second;                                                        // block for 10000 JADE tx -> 1 confirmation
+                CBlockIndex* pMNIndex = (*mi).second;                                                        // block for 10000 gocash tx -> 1 confirmation
                 CBlockIndex* pConfIndex = chainActive[pMNIndex->nHeight + MASTERNODE_MIN_CONFIRMATIONS - 1]; // block where tx got MASTERNODE_MIN_CONFIRMATIONS
                 if (pConfIndex->GetBlockTime() > sigTime) {
                     LogPrint("masternode","mnb - Bad sigTime %d for Masternode %s (%i conf block is at %d)\n",
@@ -1044,7 +1044,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
                 TRY_LOCK(cs_vNodes, lockNodes);
                 if (!lockNodes) return;
                 BOOST_FOREACH (CNode* pnode, vNodes)
-                    if (pnode->nVersion >= masternodePayments.GetMinMasternodePaymentsProto())
+                    if (pnode->nVersion >= masternodGOCashments.GetMinMasternodGOCashmentsProto())
                         pnode->PushMessage("dsee", vin, addr, vchSig, sigTime, pubkey, pubkey2, count, current, lastUpdated, protocolVersion, donationAddress, donationPercentage);
             }
         } else {
@@ -1092,7 +1092,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
 
         // see if we have this Masternode
         CMasternode* pmn = this->Find(vin);
-        if (pmn != NULL && pmn->protocolVersion >= masternodePayments.GetMinMasternodePaymentsProto()) {
+        if (pmn != NULL && pmn->protocolVersion >= masternodGOCashments.GetMinMasternodGOCashmentsProto()) {
             // LogPrint("masternode","dseep - Found corresponding mn for vin: %s\n", vin.ToString().c_str());
             // take this only if it's newer
             if (sigTime - pmn->nLastDseep > MASTERNODE_MIN_MNP_SECONDS) {
@@ -1114,7 +1114,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
                     if (!lockNodes) return;
                     LogPrint("masternode", "dseep - relaying %s \n", vin.prevout.hash.ToString());
                     BOOST_FOREACH (CNode* pnode, vNodes)
-                        if (pnode->nVersion >= masternodePayments.GetMinMasternodePaymentsProto())
+                        if (pnode->nVersion >= masternodGOCashments.GetMinMasternodGOCashmentsProto())
                             pnode->PushMessage("dseep", vin, vchSig, sigTime, stop);
                 }
             }

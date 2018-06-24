@@ -116,7 +116,7 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
 
     GUIUtil::restoreWindowGeometry("nWindow", QSize(850, 550), this);
 
-    QString windowTitle = tr("JADE Core") + " - ";
+    QString windowTitle = tr("GoCash Core") + " - ";
 #ifdef ENABLE_WALLET
     /* if compiled with wallet support, -disablewallet can still disable the wallet */
     enableWallet = !GetBoolArg("-disablewallet", false);
@@ -190,11 +190,11 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
     labelStakingIcon = new QLabel();
     labelEncryptionIcon = new QPushButton();
     labelEncryptionIcon->setFlat(true); // Make the button look like a label, but clickable
-    labelEncryptionIcon->setStyleSheet(".QPushButton { background-color: rgba(255, 255, 255, 0);}");
+    labelEncryptionIcon->setStyleSheet(".QPushButton { background-color: rgba(0, 204, 255, 0);}");
     labelEncryptionIcon->setMaximumSize(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE);
     labelConnectionsIcon = new QPushButton();
     labelConnectionsIcon->setFlat(true); // Make the button look like a label, but clickable
-    labelConnectionsIcon->setStyleSheet(".QPushButton { background-color: rgba(255, 255, 255, 0);}");
+    labelConnectionsIcon->setStyleSheet(".QPushButton { background-color: rgba(0, 204, 255, 0);}");
     labelConnectionsIcon->setMaximumSize(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE);
     labelBlocksIcon = new QLabel();
 
@@ -224,7 +224,7 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
     // See https://qt-project.org/doc/qt-4.8/gallery.html
     QString curStyle = QApplication::style()->metaObject()->className();
     if (curStyle == "QWindowsStyle" || curStyle == "QWindowsXPStyle") {
-        progressBar->setStyleSheet("QProgressBar { background-color: #F8F8F8; border: 1px solid grey; border-radius: 7px; padding: 1px; text-align: center; } QProgressBar::chunk { background: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #00CCFF, stop: 1 #33CCFF); border-radius: 7px; margin: 0px; }");
+        progressBar->setStyleSheet("QProgressBar { background-color: #00CCFF; border: 1px solid blue; border-radius: 7px; padding: 1px; text-align: center; } QProgressBar::chunk { background: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #00CCFF, stop: 1 #33CCFF); border-radius: 7px; margin: 0px; }");
     }
 
     statusBar()->addWidget(progressBarLabel);
@@ -299,7 +299,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     tabGroup->addAction(overviewAction);
 
     sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send"), this);
-    sendCoinsAction->setStatusTip(tr("Send coins to a JADE address"));
+    sendCoinsAction->setStatusTip(tr("Send coins to a gocash address"));
     sendCoinsAction->setToolTip(sendCoinsAction->statusTip());
     sendCoinsAction->setCheckable(true);
 #ifdef Q_OS_MAC
@@ -310,7 +310,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     tabGroup->addAction(sendCoinsAction);
 
     receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive"), this);
-    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and jade: URIs)"));
+    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and gocash: URIs)"));
     receiveCoinsAction->setToolTip(receiveCoinsAction->statusTip());
     receiveCoinsAction->setCheckable(true);
 #ifdef Q_OS_MAC
@@ -332,7 +332,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     tabGroup->addAction(historyAction);
 
     privacyAction = new QAction(QIcon(":/icons/privacy"), tr("&Privacy"), this);
-    privacyAction->setStatusTip(tr("Privacy Actions for zJADE"));
+    privacyAction->setStatusTip(tr("Privacy Actions for zgocash"));
     privacyAction->setToolTip(privacyAction->statusTip());
     privacyAction->setCheckable(true);
 #ifdef Q_OS_MAC
@@ -378,8 +378,8 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     quitAction->setStatusTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutAction = new QAction(networkStyle->getAppIcon(), tr("&About JADE Core"), this);
-    aboutAction->setStatusTip(tr("Show information about JADE Core"));
+    aboutAction = new QAction(networkStyle->getAppIcon(), tr("&About gocash Core"), this);
+    aboutAction->setStatusTip(tr("Show information about gocash Core"));
     aboutAction->setMenuRole(QAction::AboutRole);
 #if QT_VERSION < 0x050000
     aboutQtAction = new QAction(QIcon(":/trolltech/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
@@ -389,7 +389,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     aboutQtAction->setStatusTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
     optionsAction = new QAction(QIcon(":/icons/options"), tr("&Options..."), this);
-    optionsAction->setStatusTip(tr("Modify configuration options for JADE"));
+    optionsAction->setStatusTip(tr("Modify configuration options for gocash"));
     optionsAction->setMenuRole(QAction::PreferencesRole);
     toggleHideAction = new QAction(networkStyle->getAppIcon(), tr("&Show / Hide"), this);
     toggleHideAction->setStatusTip(tr("Show or hide the main Window"));
@@ -405,9 +405,9 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     unlockWalletAction->setToolTip(tr("Unlock wallet"));
     lockWalletAction = new QAction(tr("&Lock Wallet"), this);
     signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
-    signMessageAction->setStatusTip(tr("Sign messages with your JADE addresses to prove you own them"));
+    signMessageAction->setStatusTip(tr("Sign messages with your gocash addresses to prove you own them"));
     verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
-    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified JADE addresses"));
+    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified gocash addresses"));
     bip38ToolAction = new QAction(QIcon(":/icons/key"), tr("&BIP38 tool"), this);
     bip38ToolAction->setToolTip(tr("Encrypt and decrypt private keys using a passphrase"));
     multiSendAction = new QAction(QIcon(":/icons/edit"), tr("&MultiSend"), this);
@@ -444,13 +444,13 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     multisigSignAction->setStatusTip(tr("Sign with a multisignature address"));
 
     openAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_FileIcon), tr("Open &URI..."), this);
-    openAction->setStatusTip(tr("Open a JADE: URI or payment request"));
+    openAction->setStatusTip(tr("Open a gocash: URI or payment request"));
     openBlockExplorerAction = new QAction(QIcon(":/icons/explorer"), tr("&Blockchain explorer"), this);
     openBlockExplorerAction->setStatusTip(tr("Block explorer window"));
 
     showHelpMessageAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation), tr("&Command-line options"), this);
     showHelpMessageAction->setMenuRole(QAction::NoRole);
-    showHelpMessageAction->setStatusTip(tr("Show the JADE Core help message to get a list with possible JADE command-line options"));
+    showHelpMessageAction->setStatusTip(tr("Show the gocash Core help message to get a list with possible gocash command-line options"));
 
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
@@ -664,7 +664,7 @@ void BitcoinGUI::createTrayIcon(const NetworkStyle* networkStyle)
 {
 #ifndef Q_OS_MAC
     trayIcon = new QSystemTrayIcon(this);
-    QString toolTip = tr("JADE Core client") + " " + networkStyle->getTitleAddText();
+    QString toolTip = tr("GoCash Core client") + " " + networkStyle->getTitleAddText();
     trayIcon->setToolTip(toolTip);
     trayIcon->setIcon(networkStyle->getAppIcon());
     trayIcon->show();
@@ -876,7 +876,7 @@ void BitcoinGUI::setNumConnections(int count)
     }
     QIcon connectionItem = QIcon(icon).pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE);
     labelConnectionsIcon->setIcon(connectionItem);
-    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to JADE network", "", count));
+    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to gocash network", "", count));
 }
 
 void BitcoinGUI::setNumBlocks(int count)
@@ -1006,7 +1006,7 @@ void BitcoinGUI::setNumBlocks(int count)
 
 void BitcoinGUI::message(const QString& title, const QString& message, unsigned int style, bool* ret)
 {
-    QString strTitle = tr("JADE Core"); // default title
+    QString strTitle = tr("GoCash Core"); // default title
     // Default to information icon
     int nMBoxIcon = QMessageBox::Information;
     int nNotifyIcon = Notificator::Information;
@@ -1031,7 +1031,7 @@ void BitcoinGUI::message(const QString& title, const QString& message, unsigned 
             break;
         }
     }
-    // Append title to "JADE - "
+    // Append title to "gocash - "
     if (!msgType.isEmpty())
         strTitle += " - " + msgType;
 
@@ -1155,10 +1155,10 @@ void BitcoinGUI::setStakingStatus()
 }
 
 #ifdef ENABLE_WALLET
-bool BitcoinGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
+bool BitcoinGUI::handlGOCashmentRequest(const SendCoinsRecipient& recipient)
 {
     // URI has to be valid
-    if (walletFrame && walletFrame->handlePaymentRequest(recipient)) {
+    if (walletFrame && walletFrame->handlGOCashmentRequest(recipient)) {
         showNormalIfMinimized();
         gotoSendCoinsPage();
         return true;

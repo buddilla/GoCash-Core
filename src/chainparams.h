@@ -26,7 +26,7 @@ struct CDNSSeedData {
 
 /**
  * CChainParams defines various tweakable parameters of a given instance of the
- * JADE system. There are three: the main network on which people trade jade
+ * gocash system. There are three: the main network on which people trade gocash
  * and services, the public test network which gets reset from time to time and
  * a regression test mode which is intended for private networks only. It has
  * minimal difficulty to ensure that blocks can be found instantly.
@@ -93,7 +93,7 @@ public:
     int PoolMaxTransactions() const { return nPoolMaxTransactions; }
     std::string SporkKey() const { return strSporkKey; }
     std::string ObfuscationPoolDummyAddress() const { return strObfuscationPoolDummyAddress; }
-    int64_t StartMasternodePayments() const { return nStartMasternodePayments; }
+    int64_t StartMasternodGOCashments() const { return nStartMasternodGOCashments; }
     int64_t Budget_Fee_Confirmations() const { return nBudget_Fee_Confirmations; }
     CBaseChainParams::Network NetworkID() const { return networkID; }
 
@@ -154,7 +154,7 @@ protected:
     int nPoolMaxTransactions;
     std::string strSporkKey;
     std::string strObfuscationPoolDummyAddress;
-    int64_t nStartMasternodePayments;
+    int64_t nStartMasternodGOCashments;
     std::string zerocoinModulus;
     int nMaxZerocoinSpendsPerTransaction;
     CAmount nMinZerocoinMintFee;
