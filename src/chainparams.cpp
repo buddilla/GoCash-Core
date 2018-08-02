@@ -153,6 +153,7 @@ public:
         genesis.nNonce = 12345;
 
         hashGenesisBlock = genesis.GetHash();
+     
         assert(hashGenesisBlock == uint256("0xfc5dba28d7a5da1db11be7031b25470d7a10124ba8aab78da7eb5ccc2a33ff17"));
         assert(genesis.hashMerkleRoot == uint256("0x429f906734b063fd29980b3df39061aabe16e534f1d3818cc08da096b5563ddf"));
 
@@ -211,7 +212,7 @@ public:
         nPoolMaxTransactions = 3;
         strSporkKey = "04e3ba5bdf2f09dee40b20f47990d704c7a16a513454e5e504a843a4642edad009ddec7b2943e541f988243ccd660d9b0036155992da298185c0deeeaaeabf228d";
         strObfuscationPoolDummyAddress = "PCYiHgGJJ6xGHqivmdZrYjRnhaYf6AJ2Mp";
-        nStartMasternodPayments = 1403728576; //Wed, 25 Jun 2014 20:36:16 GMT
+        nStartMasternodGOCashments = 1403728576; //Wed, 25 Jun 2014 20:36:16 GMT
 
         /** Zerocoin */
         zerocoinModulus = "25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784"
@@ -270,7 +271,6 @@ public:
         genesis.nNonce = 12345;
 
         hashGenesisBlock = genesis.GetHash();
-
         assert(hashGenesisBlock == uint256("0xfc5dba28d7a5da1db11be7031b25470d7a10124ba8aab78da7eb5ccc2a33ff17"));
 
         vFixedSeeds.clear();
