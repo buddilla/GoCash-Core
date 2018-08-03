@@ -27,5 +27,5 @@
 <tr><td>100,001-100,300</td><td>3.3 GCASH</td><td>2.9 GCASH</td><td>0.33 GCASH</td></tr>
 <tr><td>100,301-600,000</td><td>2.5 GCASH</td><td>2,25 GCASH</td><td>0.24 GCASH</td></tr>
 <tr><td>600,001-4,000,000</td><td>1 GCASH</td><td>0.9 GCASH</td><td>0.1 GCASH</td></tr>
-<tr><td>4,000,001-1,947,916</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>4,000,001-</td><td>0</td><td>0</td><td>0</td></tr>
 </table>
