@@ -12,10 +12,9 @@ PoS/Masternode
 
 <table>
 <th>Block Height</th><th>Reward</th><th>Masternodes</th><th>Stakers</th>
-<tr><td><= 1000</td><td>1 gocash</td><td>0.9 gocash</td><td>0.1 gocash</td></tr>
-<tr><td>1,001-233,750</td><td>20 gocash</td><td>18 gocash</td><td>2 gocash</td></tr>
-<tr><td>233,751-545,416</td><td>15 gocash</td><td>13.5 gocash</td><td>1.5 gocash</td></tr>
-<tr><td>545,417-1,012,916</td><td>10 gocash</td><td>9 gocash</td><td>1 gocash</td></tr>
-<tr><td>1,012,917-1,947,916</td><td>5 gocash</td><td>4.5 gocash</td><td>0.5 gocash</td></tr>
-<tr><td>1,947,917- </td><td>0 gocash</td><td>0 gocash</td><td>0 gocash</td></tr>
+<tr><td><= 1,000</td><td>3 GCASH</td><td>2.7 GCASH</td><td>0.3 GCASH</td></tr>
+<tr><td>100,001-100,300</td><td>3.3 GCASH</td>2.9 GCASH<td></td><td>0.33 GCASH</td></tr>
+<tr><td>100,301-600,000</td><td>2.5 GCASH</td><td>2,25 GCASH</td><td>0.24 GCASH</td></tr>
+<tr><td>600,001-4,000,000</td><td>1 GCASH</td><td>0.9 GCASH</td><td>0.1 GCASH</td></tr>
+<tr><td>4,000,001-1,947,916</td><td>0</td><td>0</td><td>0</td></tr>
 </table>
